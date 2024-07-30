@@ -13,20 +13,15 @@ import PencilKit
 struct DrawingCanvasView: View {
     @Environment(\.undoManager) private var undoManager
     @State private var canvasView = PKCanvasView()
-    
-    
-//    private let canvasView: PKCanvasView = {
-//        let canvas = PKCanvasView()
-//        canvas.drawingPolicy = .anyInput
-//        return canvas
-//    }()
+    @State private var toolPicker = PKToolPicker()
+
     
     var body: some View {
         ZStack{
             Color.purple
                 .ignoresSafeArea()
             VStack {
-                MyCanvas(canvasView: $canvasView)
+                MyCanvas(canvasView: $canvasView, toolPicker: $toolPicker)
                     .padding(50)
                 
                 Button(action: {
@@ -69,14 +64,21 @@ struct DrawingCanvasView: View {
 
 struct MyCanvas: UIViewRepresentable {
     @Binding var canvasView: PKCanvasView
+    @Binding var toolPicker: PKToolPicker
     
     func makeUIView(context: Context) -> PKCanvasView {
         canvasView.drawingPolicy = .anyInput
+        toolPicker.setVisible(true, forFirstResponder: canvasView)
+        toolPicker.addObserver(canvasView)
+        canvasView.becomeFirstResponder()
+
         return canvasView
     }
     
     func updateUIView(_ canvasView: PKCanvasView, context: Context) { }
 }
+
+
 
 #Preview {
     DrawingCanvasView()
