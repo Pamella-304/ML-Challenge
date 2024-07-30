@@ -11,6 +11,7 @@
 		61DBC2372C5986CA0007F69D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DBC2362C5986CA0007F69D /* ContentView.swift */; };
 		61DBC2392C5986CB0007F69D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61DBC2382C5986CB0007F69D /* Assets.xcassets */; };
 		61DBC23C2C5986CB0007F69D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61DBC23B2C5986CB0007F69D /* Preview Assets.xcassets */; };
+		61DBC2432C5989D20007F69D /* DrawingCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DBC2422C5989D20007F69D /* DrawingCanvasView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		61DBC2362C5986CA0007F69D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		61DBC2382C5986CB0007F69D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		61DBC23B2C5986CB0007F69D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		61DBC2422C5989D20007F69D /* DrawingCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCanvasView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				61DBC2342C5986CA0007F69D /* MLApp.swift */,
+				61DBC2422C5989D20007F69D /* DrawingCanvasView.swift */,
 				61DBC2362C5986CA0007F69D /* ContentView.swift */,
 				61DBC2382C5986CB0007F69D /* Assets.xcassets */,
 				61DBC23A2C5986CB0007F69D /* Preview Content */,
@@ -139,6 +142,7 @@
 			files = (
 				61DBC2372C5986CA0007F69D /* ContentView.swift in Sources */,
 				61DBC2352C5986CA0007F69D /* MLApp.swift in Sources */,
+				61DBC2432C5989D20007F69D /* DrawingCanvasView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
