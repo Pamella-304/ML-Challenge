@@ -5,4 +5,12 @@
 //  Created by Pamella Alvarenga on 31/07/24.
 //
 
-import Foundation
+import SwiftUI
+
+class ScenarioViewModel: ObservableObject {
+    @Published var showDrawingCanvas = false
+
+    func toggleDrawingCanvas() {
+        showDrawingCanvas.toggle()
+    }
+}

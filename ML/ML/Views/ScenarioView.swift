@@ -7,33 +7,43 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct ScenarioView: View {
-    @State private var showDrawingCanvas = false
+    @StateObject private var viewModel = ScenarioViewModel()
     
     var body: some View {
-            ZStack {
-                Image("aquario")
-                    .resizable()
-                    .scaledToFill()
-                    .edgesIgnoringSafeArea(.all)
-                VStack {
-                    Button(action: {
-                        showDrawingCanvas.toggle()
-                    }) {
-                        Image(systemName: "pencil")
-                            .imageScale(.large)
-                            .padding()
-                            .background(Color.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                        
-                    }.sheet(isPresented: $showDrawingCanvas) {
-                        DrawingCanvasView()
-                    }
-                }
+        ZStack {
+            BackgroundView()
+            DrawingButtonView()
+        }
+    }
+    
+    private func BackgroundView() -> some View {
+        Image("aquario")
+            .resizable()
+            .scaledToFill()
+            .edgesIgnoringSafeArea(.all)
+    }
+    
+    private func DrawingButtonView() -> some View {
+        VStack {
+            Button(action: {
+                viewModel.toggleDrawingCanvas()
+            }) {
+                Image(systemName: "pencil")
+                    .imageScale(.large)
+                    .padding()
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                
+            }.sheet(isPresented: $viewModel.showDrawingCanvas) {
+                DrawingCanvasView()
             }
             
-            
-        
+            Spacer()
+        }
+        .padding()
     }
 }
 
