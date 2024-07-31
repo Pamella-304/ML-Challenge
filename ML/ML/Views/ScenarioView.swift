@@ -7,15 +7,23 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct ScenarioView: View {
     @StateObject private var viewModel = ScenarioViewModel()
+    @State private var animalPosition: CGFloat = UIScreen.main.bounds.width - 800 // starts at right edge
+    @State private var leftEdge: CGFloat = -UIScreen.main.bounds.width + 800
     
     var body: some View {
         ZStack {
             BackgroundView()
             DrawingButtonView()
+            
+            AnimalView()
+                .offset(x: animalPosition)
+                .onAppear {
+                    withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: true)) {
+                        animalPosition = leftEdge
+                    }
+                }
         }
     }
     
@@ -45,8 +53,10 @@ struct ScenarioView: View {
         }
         .padding()
     }
-}
-
-#Preview {
-    ScenarioView()
+    
+    private func AnimalView() -> some View {
+        Circle()
+            .foregroundStyle(.red)
+            .frame(width: 100, height: 100)
+    }
 }
