@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ScenarioView: View {
+    
+    @StateObject private var viewModel = ScenarioViewModel()
     @State private var showDrawingCanvas = false
     
     var body: some View {
@@ -17,6 +19,7 @@ struct ScenarioView: View {
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
                 VStack {
+                    
                     Button(action: {
                         showDrawingCanvas.toggle()
                     }) {
@@ -27,13 +30,21 @@ struct ScenarioView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                         
                     }.sheet(isPresented: $showDrawingCanvas) {
-                        DrawingCanvasView()
+                        DrawingCanvasView(viewModel: DrawingCanvasViewModel()) { image in
+                            viewModel.addImage(image)
+                            showDrawingCanvas = false
+                        }
+                        
+                        ForEach(viewModel.isolatedImages, id: \.self) { image in
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: 100)
+                                .transition(.scale)
+                        }
                     }
                 }
             }
-            
-            
-        
     }
 }
 

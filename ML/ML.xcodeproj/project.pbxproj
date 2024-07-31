@@ -14,6 +14,7 @@
 		61DBC2432C5989D20007F69D /* DrawingCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DBC2422C5989D20007F69D /* DrawingCanvasView.swift */; };
 		61FCD8D92C5A703300940C1C /* DrawingCanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FCD8D82C5A703300940C1C /* DrawingCanvasViewModel.swift */; };
 		61FCD8DB2C5A704A00940C1C /* ScenarioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FCD8DA2C5A704A00940C1C /* ScenarioViewModel.swift */; };
+		61FCD8DE2C5A803300940C1C /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FCD8DD2C5A803200940C1C /* ImageProcessor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		61DBC2422C5989D20007F69D /* DrawingCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCanvasView.swift; sourceTree = "<group>"; };
 		61FCD8D82C5A703300940C1C /* DrawingCanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCanvasViewModel.swift; sourceTree = "<group>"; };
 		61FCD8DA2C5A704A00940C1C /* ScenarioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioViewModel.swift; sourceTree = "<group>"; };
+		61FCD8DD2C5A803200940C1C /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 		61DBC2332C5986CA0007F69D /* ML */ = {
 			isa = PBXGroup;
 			children = (
+				61FCD8DC2C5A801E00940C1C /* Models */,
 				61FCD8D72C5A701400940C1C /* ViewModels */,
 				61FCD8D62C5A700C00940C1C /* Views */,
 				61DBC2342C5986CA0007F69D /* MLApp.swift */,
@@ -90,6 +93,14 @@
 				61FCD8DA2C5A704A00940C1C /* ScenarioViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		61FCD8DC2C5A801E00940C1C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				61FCD8DD2C5A803200940C1C /* ImageProcessor.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,6 +177,7 @@
 				61DBC2352C5986CA0007F69D /* MLApp.swift in Sources */,
 				61FCD8DB2C5A704A00940C1C /* ScenarioViewModel.swift in Sources */,
 				61DBC2432C5989D20007F69D /* DrawingCanvasView.swift in Sources */,
+				61FCD8DE2C5A803300940C1C /* ImageProcessor.swift in Sources */,
 				61FCD8D92C5A703300940C1C /* DrawingCanvasViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
