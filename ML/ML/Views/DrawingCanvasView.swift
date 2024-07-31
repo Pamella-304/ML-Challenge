@@ -14,6 +14,7 @@ struct DrawingCanvasView: View {
     @Environment(\.undoManager) private var undoManager
     @State private var canvasView = PKCanvasView()
     @State private var toolPicker = PKToolPicker()
+    @Environment(\.presentationMode) var presentationMode // Para fechar a view
 
     
     var body: some View {
@@ -21,6 +22,18 @@ struct DrawingCanvasView: View {
             Color.purple
                 .ignoresSafeArea()
             VStack {
+                
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss() // Fecha o DrawingCanvasView
+                }) {
+                    Text("Close")
+                        .font(.title2)
+                        .padding()
+                        .background(Color.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                
                 MyCanvas(canvasView: $canvasView, toolPicker: $toolPicker)
                     .padding(50)
                 
@@ -57,6 +70,8 @@ struct DrawingCanvasView: View {
                         .foregroundColor(.black)
                         .cornerRadius(10)
                 }
+                
+                
             }
         }
     }
