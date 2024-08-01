@@ -11,6 +11,7 @@ struct ScenarioView: View {
     @StateObject private var viewModel = ScenarioViewModel()
     @State private var animalPosition: CGFloat = UIScreen.main.bounds.width - 800 // starts at right edge
     @State private var leftEdge: CGFloat = -UIScreen.main.bounds.width + 800
+    @State private var isFlipped: Bool = false
     
     var body: some View {
         ZStack {
@@ -20,9 +21,19 @@ struct ScenarioView: View {
             AnimalView()
                 .offset(x: animalPosition)
                 .onAppear {
-                    withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: true)) {
-                        animalPosition = leftEdge
+                    Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { timer in
+                        withAnimation(Animation.linear(duration: 2)) {
+                            // makes animal move horizontally
+                            if animalPosition == UIScreen.main.bounds.width - 800 {
+                                animalPosition = leftEdge
+                            } else {
+                                animalPosition = UIScreen.main.bounds.width - 800
+                            }
+                        }
                     }
+                }
+                .onChange(of: animalPosition) {
+                    isFlipped.toggle()
                 }
         }
     }
@@ -55,8 +66,10 @@ struct ScenarioView: View {
     }
     
     private func AnimalView() -> some View {
-        Circle()
-            .foregroundStyle(.red)
-            .frame(width: 100, height: 100)
+        Image("tubarao")
+            .resizable()
+            .frame(width: UIScreen.main.bounds.width * 0.3,
+                   height: UIScreen.main.bounds.height * 0.4)
+            .scaleEffect(x: isFlipped ? -1 : 1, y: 1)
     }
 }
