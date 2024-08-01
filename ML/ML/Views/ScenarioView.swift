@@ -10,6 +10,7 @@ import SwiftUI
 struct ScenarioView: View {
     @StateObject private var viewModel = ScenarioViewModel()
     @State private var animalPosition: CGFloat = UIScreen.main.bounds.width * 0.65 // starts at right edge
+    @State private var rightEdge: CGFloat = UIScreen.main.bounds.width * 0.65
     @State private var leftEdge: CGFloat = -UIScreen.main.bounds.width * 0.65
     @State private var isFlipped: Bool = false
     
@@ -21,20 +22,23 @@ struct ScenarioView: View {
             AnimalView()
                 .offset(x: animalPosition)
                 .onAppear {
-                    Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { timer in
-                        withAnimation(Animation.linear(duration: 3)) {
-                            // makes animal move horizontally
-                            if animalPosition == UIScreen.main.bounds.width * 0.65 {
-                                animalPosition = leftEdge
-                            } else {
-                                animalPosition = UIScreen.main.bounds.width * 0.65
-                            }
-                        }
-                    }
+                    startHorizontalAnimation(duration: 3)
                 }
                 .onChange(of: animalPosition) {
                     isFlipped.toggle()
                 }
+        }
+    }
+        
+    private func startHorizontalAnimation(duration: Double) {
+        Timer.scheduledTimer(withTimeInterval: duration, repeats: true) { timer in
+            withAnimation(Animation.linear(duration: duration)) {
+                if animalPosition == rightEdge {
+                    animalPosition = leftEdge
+                } else {
+                    animalPosition = rightEdge
+                }
+            }
         }
     }
     
