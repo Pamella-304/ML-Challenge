@@ -24,7 +24,6 @@ class DrawingCanvasViewModel: ObservableObject {
                 self?.isolatedImage = isolatedImage
                 completion(isolatedImage)
 
-                //self?.isDrawingCanvasViewPresented = false
             }
         }
         

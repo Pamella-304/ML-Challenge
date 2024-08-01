@@ -12,8 +12,6 @@ struct DrawingCanvasView: View {
     
     @ObservedObject var viewModel: DrawingCanvasViewModel
     @Environment(\.undoManager) private var undoManager
-//    @State private var canvasView = PKCanvasView()
-  //  @State private var toolPicker = PKToolPicker()
     var onAdd: (UIImage) -> Void
 
     
@@ -60,12 +58,12 @@ struct DrawingCanvasView: View {
                 }
                 
                 Button(action: {
-                    print("a")
+                    print("action initiated")
                     viewModel.processDrawing { image in
                         if let image = image {
                             print("processed image: \(image)")
                             onAdd(image)
-                            print("added")
+                            print("Image gotten")
                         } else {
                             print("failed to process image")
                         }
@@ -85,12 +83,9 @@ struct DrawingCanvasView: View {
 
 struct MyCanvas: UIViewRepresentable {
     @Binding var canvasView: PKCanvasView
- //   @Binding var toolPicker: PKToolPicker
     
     func makeUIView(context: Context) -> PKCanvasView {
         canvasView.drawingPolicy = .anyInput
-//        toolPicker.setVisible(true, forFirstResponder: canvasView)
-//        toolPicker.addObserver(canvasView)
         canvasView.becomeFirstResponder()
 
         return canvasView
