@@ -20,18 +20,8 @@ struct DrawingCanvasView: View {
                 .ignoresSafeArea()
             VStack {
                 MyCanvas(canvasView: $viewModel.canvasView)                
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss() // Fecha o DrawingCanvasView
-                }) {
-                    Text("Close")
-                        .font(.title2)
-                        .padding()
-                        .background(Color.red)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
                 
-                MyCanvas(canvasView: $canvasView, toolPicker: $toolPicker)
+                MyCanvas(canvasView: $viewModel.canvasView)
                     .padding(50)
                 
                 Button(action: {
