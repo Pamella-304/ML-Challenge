@@ -9,10 +9,6 @@ import SwiftUI
 
 struct ScenarioView: View {
     @StateObject private var viewModel = ScenarioViewModel()
-    @State private var animalPosition: CGFloat = UIScreen.main.bounds.width * 0.65 // starts at right edge
-    @State private var rightEdge: CGFloat = UIScreen.main.bounds.width * 0.65
-    @State private var leftEdge: CGFloat = -UIScreen.main.bounds.width * 0.65
-    @State private var isFlipped: Bool = false
     
     var body: some View {
         ZStack {
@@ -20,25 +16,13 @@ struct ScenarioView: View {
             DrawingButtonView()
             
             AnimalView()
-                .offset(x: animalPosition)
+                .offset(x: viewModel.animalPosition)
                 .onAppear {
-                    startHorizontalAnimation(duration: 3)
+                    viewModel.startHorizontalAnimation(duration: 3)
                 }
-                .onChange(of: animalPosition) {
-                    isFlipped.toggle()
+                .onChange(of: viewModel.animalPosition) {
+                    viewModel.isFlipped.toggle()
                 }
-        }
-    }
-        
-    private func startHorizontalAnimation(duration: Double) {
-        Timer.scheduledTimer(withTimeInterval: duration, repeats: true) { timer in
-            withAnimation(Animation.linear(duration: duration)) {
-                if animalPosition == rightEdge {
-                    animalPosition = leftEdge
-                } else {
-                    animalPosition = rightEdge
-                }
-            }
         }
     }
     
@@ -74,6 +58,6 @@ struct ScenarioView: View {
             .resizable()
             .frame(width: UIScreen.main.bounds.width * 0.3,
                    height: UIScreen.main.bounds.height * 0.4)
-            .scaleEffect(x: isFlipped ? -1 : 1, y: 1)
+            .scaleEffect(x: viewModel.isFlipped ? -1 : 1, y: 1)
     }
 }
