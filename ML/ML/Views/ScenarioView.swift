@@ -13,7 +13,6 @@ struct ScenarioView: View {
     var body: some View {
         ZStack {
             BackgroundView()
-            DrawingButtonView()
             
             AnimalView()
                 .offset(x: viewModel.animalPosition)
@@ -24,14 +23,7 @@ struct ScenarioView: View {
                     viewModel.isFlipped.toggle()
                 }
             
-            GeometryReader { geometry in
-                ForEach(viewModel.isolatedImages, id: \.self) { image in
-                    Image(uiImage: image)
-                        .resizable()
-                        .frame(width: 500, height: 500)
-                        .position(x: geometry.size.width/2 - 50, y: geometry.size.height/2 - 50)
-                }
-            }
+            DrawingButtonView()
         }
     }
     
@@ -54,9 +46,9 @@ struct ScenarioView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                 
             }.sheet(isPresented: $viewModel.showDrawingCanvas) {
-                    DrawingCanvasView(viewModel: DrawingCanvasViewModel()) { image in
-                        viewModel.addImage(image)
-                    }
+                DrawingCanvasView(viewModel: DrawingCanvasViewModel()) { image in
+                    viewModel.addImage(image)
+                }
             }
 
             Spacer()
@@ -65,10 +57,12 @@ struct ScenarioView: View {
     }
 
     private func AnimalView() -> some View {
-        Image("tubarao")
-            .resizable()
-            .frame(width: UIScreen.main.bounds.width * 0.3,
-                   height: UIScreen.main.bounds.height * 0.4)
-            .scaleEffect(x: viewModel.isFlipped ? -1 : 1, y: 1)
+        ForEach(viewModel.isolatedImages, id: \.self) { image in
+            Image(uiImage: image)
+                .resizable()
+                .frame(width: UIScreen.main.bounds.width * 0.3,
+                       height: UIScreen.main.bounds.height * 0.4)
+                .scaleEffect(x: viewModel.isFlipped ? -1 : 1, y: 1)
+        }
     }
 }
