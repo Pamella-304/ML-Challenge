@@ -13,14 +13,25 @@ struct DrawingCanvasView: View {
     @ObservedObject var viewModel: DrawingCanvasViewModel
     @Environment(\.undoManager) private var undoManager
     var onAdd: (UIImage) -> Void
-
     
     var body: some View {
         ZStack{
             Color.purple
                 .ignoresSafeArea()
             VStack {
-                MyCanvas(canvasView: $viewModel.canvasView)
+                MyCanvas(canvasView: $viewModel.canvasView)                
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss() // Fecha o DrawingCanvasView
+                }) {
+                    Text("Close")
+                        .font(.title2)
+                        .padding()
+                        .background(Color.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                
+                MyCanvas(canvasView: $canvasView, toolPicker: $toolPicker)
                     .padding(50)
                 
                 Button(action: {
@@ -76,6 +87,7 @@ struct DrawingCanvasView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
+
             }
         }
     }
