@@ -8,24 +8,22 @@
 import SwiftUI
 import PencilKit
 
-
-
 struct DrawingCanvasView: View {
+    
+    @ObservedObject var viewModel: DrawingCanvasViewModel
     @Environment(\.undoManager) private var undoManager
-    @State private var canvasView = PKCanvasView()
-    @State private var toolPicker = PKToolPicker()
-
+    var onAdd: (UIImage) -> Void
     
     var body: some View {
         ZStack{
             Color.purple
                 .ignoresSafeArea()
             VStack {
-                MyCanvas(canvasView: $canvasView, toolPicker: $toolPicker)
+                MyCanvas(canvasView: $viewModel.canvasView)                
                     .padding(50)
                 
                 Button(action: {
-                    canvasView.drawing = PKDrawing()
+                    viewModel.canvasView.drawing = PKDrawing()
                 }) {
                     Text("Clear")
                         .font(.title)
@@ -57,6 +55,27 @@ struct DrawingCanvasView: View {
                         .foregroundColor(.black)
                         .cornerRadius(10)
                 }
+                
+                Button(action: {
+                    print("action initiated")
+                    viewModel.processDrawing { image in
+                        if let image = image {
+                            print("processed image: \(image)")
+                            onAdd(image)
+                            print("Image gotten")
+                        } else {
+                            print("failed to process image")
+                        }
+                    }
+                }) {
+                    Text("Add")
+                        .font(.title)
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+
             }
         }
     }
@@ -64,12 +83,9 @@ struct DrawingCanvasView: View {
 
 struct MyCanvas: UIViewRepresentable {
     @Binding var canvasView: PKCanvasView
-    @Binding var toolPicker: PKToolPicker
     
     func makeUIView(context: Context) -> PKCanvasView {
         canvasView.drawingPolicy = .anyInput
-        toolPicker.setVisible(true, forFirstResponder: canvasView)
-        toolPicker.addObserver(canvasView)
         canvasView.becomeFirstResponder()
 
         return canvasView
@@ -79,7 +95,6 @@ struct MyCanvas: UIViewRepresentable {
 }
 
 
-
 #Preview {
-    DrawingCanvasView()
+    DrawingCanvasView(viewModel: DrawingCanvasViewModel(), onAdd:  { _ in })
 }

@@ -23,6 +23,15 @@ struct ScenarioView: View {
                 .onChange(of: viewModel.animalPosition) {
                     viewModel.isFlipped.toggle()
                 }
+            
+            GeometryReader { geometry in
+                ForEach(viewModel.isolatedImages, id: \.self) { image in
+                    Image(uiImage: image)
+                        .resizable()
+                        .frame(width: 500, height: 500)
+                        .position(x: geometry.size.width/2 - 50, y: geometry.size.height/2 - 50)
+                }
+            }
         }
     }
     
@@ -45,14 +54,16 @@ struct ScenarioView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                 
             }.sheet(isPresented: $viewModel.showDrawingCanvas) {
-                DrawingCanvasView()
+                    DrawingCanvasView(viewModel: DrawingCanvasViewModel()) { image in
+                        viewModel.addImage(image)
+                    }
             }
-            
+
             Spacer()
         }
         .padding()
     }
-    
+
     private func AnimalView() -> some View {
         Image("tubarao")
             .resizable()

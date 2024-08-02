@@ -13,6 +13,7 @@ class ScenarioViewModel: ObservableObject {
     @Published var animalPosition: CGFloat = UIScreen.main.bounds.width * 0.65 // starts at right edge
     @Published var rightEdge: CGFloat = UIScreen.main.bounds.width * 0.65
     @Published var leftEdge: CGFloat = -UIScreen.main.bounds.width * 0.65
+    @Published var isolatedImages: [UIImage] = []
 
     func toggleDrawingCanvas() {
         showDrawingCanvas.toggle()
@@ -29,4 +30,10 @@ class ScenarioViewModel: ObservableObject {
             }
         }
     }
+    
+    func addImage(_ image: UIImage) {
+            isolatedImages.append(image)
+        print("lista de imagens:")
+        print(isolatedImages)
+        }
 }
