@@ -57,14 +57,14 @@ struct DrawingCanvasView: View {
                 }
                 
                 Button(action: {
-                    print("action initiated")
+                   // print("action initiated")
                     viewModel.processDrawing { image in
                         if let image = image {
-                            print("processed image: \(image)")
+                           // print("processed image: \(image)")
                             onAdd(image)
-                            print("Image gotten")
+                          //  print("Image gotten")
                         } else {
-                            print("failed to process image")
+                           // print("failed to process image")
                         }
                     }
                 }) {
