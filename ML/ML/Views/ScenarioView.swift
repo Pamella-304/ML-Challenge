@@ -15,11 +15,11 @@ struct ScenarioView: View {
             BackgroundView()
             
             AnimalView()
-                .offset(x: viewModel.animalPosition)
+                .offset(x: viewModel.animalX, y: viewModel.animalY)
                 .onAppear {
                     viewModel.startHorizontalAnimation(duration: 3)
                 }
-                .onChange(of: viewModel.animalPosition) {
+                .onChange(of: viewModel.animalX) {
                     viewModel.isFlipped.toggle()
                 }
             
@@ -58,7 +58,8 @@ struct ScenarioView: View {
 
     private func AnimalView() -> some View {
         ForEach(viewModel.isolatedImages, id: \.self) { image in
-            Image(uiImage: image)
+            //Image(uiImage: image)
+            Image("tubarao") // used for tests
                 .resizable()
                 .frame(width: UIScreen.main.bounds.width * 0.3,
                        height: UIScreen.main.bounds.height * 0.4)
