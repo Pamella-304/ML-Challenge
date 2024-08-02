@@ -20,8 +20,6 @@ struct DrawingCanvasView: View {
                 .ignoresSafeArea()
             VStack {
                 MyCanvas(canvasView: $viewModel.canvasView)                
-                
-                MyCanvas(canvasView: $viewModel.canvasView)
                     .padding(50)
                 
                 Button(action: {
