@@ -12,7 +12,7 @@ class ScenarioViewModel: ObservableObject {
     
     func addImage(_ image: UIImage) {
             isolatedImages.append(image)
-        print("lista de imagens:")
-        print(isolatedImages)
+        //print("lista de imagens:")
+        //print(isolatedImages)
         }
 }
