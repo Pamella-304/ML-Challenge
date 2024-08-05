@@ -9,6 +9,10 @@ import SwiftUI
 
 struct ScenarioView: View {
     @StateObject private var viewModel = ScenarioViewModel()
+    @State private var rotationAngle: Double = 0
+    @State private var timer: Timer?
+    
+    let angles: [Double] = [0, 5, 10, 15, 20, 25, 30]
     
     var body: some View {
         ZStack {
@@ -16,8 +20,10 @@ struct ScenarioView: View {
             
             AnimalView()
                 .offset(x: viewModel.animalX, y: viewModel.animalY)
+                .rotationEffect(.degrees(rotationAngle))
                 .onAppear {
-                    viewModel.startHorizontalAnimation(duration: 3)
+                    startRotationAnimation()
+                    viewModel.startWaveAnimation(duration: 3.0)
                 }
                 .onChange(of: viewModel.animalX) {
                     viewModel.isFlipped.toggle()
@@ -64,6 +70,14 @@ struct ScenarioView: View {
                 .frame(width: UIScreen.main.bounds.width * 0.3,
                        height: UIScreen.main.bounds.height * 0.4)
                 .scaleEffect(x: viewModel.isFlipped ? -1 : 1, y: 1)
+        }
+    }
+    
+    func startRotationAnimation() {
+        timer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true) { _ in
+            withAnimation {
+                rotationAngle = angles.randomElement() ?? 0
+            }
         }
     }
 }

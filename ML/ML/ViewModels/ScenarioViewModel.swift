@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 class ScenarioViewModel: ObservableObject {
     @Published var showDrawingCanvas = false
@@ -34,9 +35,19 @@ class ScenarioViewModel: ObservableObject {
         }
     }
     
+    func startWaveAnimation(duration: Double) {
+        Timer.scheduledTimer(withTimeInterval: duration, repeats: true) { timer in
+            withAnimation(Animation.linear(duration: duration)) {
+                if self.animalX == self.rightEdge {
+                    self.animalX = self.leftEdge
+                } else {
+                    self.animalX = self.rightEdge
+                }
+            }
+        }
+    }
+    
     func addImage(_ image: UIImage) {
         isolatedImages.append(image)
-    //print("lista de imagens:")
-    //print(isolatedImages)
     }
 }
