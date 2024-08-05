@@ -18,21 +18,35 @@ struct ScenarioView: View {
         ZStack {
             BackgroundView()
             
+            // Horizontal Animation
             AnimalView()
-                .offset(x: viewModel.animalX * 0, y: viewModel.animalY)
+                .offset(x: viewModel.animalX, y: viewModel.animalY)
+                 .onAppear {
+                     viewModel.startHorizontalAnimation(duration: 3.0)
+                }
+                .onChange(of: viewModel.animalX) {
+                    viewModel.isFlipped.toggle()
+                }
+            
+            // Wave Animation
+            AnimalView()
+                .offset(x: viewModel.animalX, y: viewModel.animalY)
+                 .rotationEffect(.degrees(rotationAngle))
+                 .onAppear {
+                     startRotationAnimation()
+                     viewModel.startWaveAnimation(duration: 3.0)
+                }
+                .onChange(of: viewModel.animalX) {
+                    viewModel.isFlipped.toggle()
+                }
+            
+            // Shake Animation
+            AnimalView()
                 .rotationEffect(.degrees(viewModel.shake ? 4 : -4))
                 .onAppear {
                     viewModel.startShakeAnimation()
                 }
-                // .rotationEffect(.degrees(rotationAngle))
-                // .onAppear {
-                    // startRotationAnimation()
-//                    viewModel.startShakeAnimation(duration: 3.0, rotationAngle: $rotationAngle)
-//                }
-//                .onChange(of: viewModel.animalX) {
-//                    viewModel.isFlipped.toggle()
-//                }
-            
+
             DrawingButtonView()
         }
     }
