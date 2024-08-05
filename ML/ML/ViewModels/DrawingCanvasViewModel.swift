@@ -7,25 +7,28 @@
 
 import SwiftUI
 import PencilKit
+import CoreML
+import Vision
 
 class DrawingCanvasViewModel: ObservableObject {
     @Published var isolatedImage: UIImage?
-   // @Published var isDrawingCanvasViewPresented: Bool = false
+    // @Published var isDrawingCanvasViewPresented: Bool = false
     @Published var canvasView = PKCanvasView()
     
     private var imageProcessor = ImageProcessor() // instanciando a classe que trata da conversao necessaria para transformar o conteudo desenhado no canvas em um objeto animável e apresentável em outra view
-   // private(set) var canvasView = PKCanvasView()
+    // private(set) var canvasView = PKCanvasView()
     
     func processDrawing(completion: @escaping (UIImage?) -> Void) {
+        
         guard let image = canvasView.getImage() else { return }
         
         imageProcessor.isolateDrawing(from: image) { [weak self] isolatedImage in
             DispatchQueue.main.async {
                 self?.isolatedImage = isolatedImage
                 completion(isolatedImage)
-
             }
         }
+    
         
     }
 }

@@ -12,6 +12,7 @@ struct ScenarioView: View {
     @StateObject private var viewModel = ScenarioViewModel()
     @State private var showDrawingCanvas = false
     
+    
     var body: some View {
         ZStack {
             Image("aquario")
@@ -46,6 +47,8 @@ struct ScenarioView: View {
                     
                 }
             }
+            .padding()
+            Spacer()
         }
     }
 }

@@ -5,14 +5,65 @@
 //  Created by Pamella Alvarenga on 31/07/24.
 //
 
-import Foundation
 import Vision
 import UIKit
+import CoreML
 
 //classe que trata da conversao necessaria para transformar o conteudo desenhado no canvas em um objeto animável e apresentável em outra view
 
 class ImageProcessor {
     func isolateDrawing(from image: UIImage, completion: @escaping (UIImage?) -> Void) {
+        
+        do {
+            let config = MLModelConfiguration()
+            
+            
+            let model = try SeaAnimalClasses_1(configuration: config)
+            let visionModel = try VNCoreMLModel(for: model.model)
+            
+            let request = VNCoreMLRequest(model: visionModel) { (request, error) in
+                
+                if let error = error {
+                    print("Error in VNCoreMLRequest: \(error)")
+                    completion(nil)
+                    return
+                }
+                
+                guard let results = request.results as? [VNClassificationObservation],
+                      let firstResult = results.first else {
+                    print("Failed to classify the image")
+                    completion(nil)
+                    return
+                }
+                
+                
+                print("Detected category: \(firstResult.identifier)")
+                completion(image)
+            }
+            
+            guard let cgImage = image.cgImage else {
+                print("Failed to convert UIImage to CGImage")
+                completion(nil)
+                return
+            }
+            
+            let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
+            DispatchQueue.global(qos: .userInitiated).async {
+                do {
+                    try handler.perform([request])
+                } catch {
+                    print("Error performing vision request: \(error)")
+                    completion(nil)
+                }
+            }
+            
+        } catch {
+           
+            print("Failed to load the model: \(error)")
+            completion(nil)
+            
+        }
+        
         guard let cgImage = image.cgImage else {
             completion(nil)
             return
@@ -26,7 +77,7 @@ class ImageProcessor {
             do {
                 try handler.perform([request])
                 
-                guard let observations = request.results as? [VNContoursObservation],
+                guard let observations = request.results,
                       let contoursObservation = observations.first else {
                     DispatchQueue.main.async {
                         completion(nil)
