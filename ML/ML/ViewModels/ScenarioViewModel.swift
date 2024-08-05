@@ -18,6 +18,7 @@ class ScenarioViewModel: ObservableObject {
     @Published var rightEdge: CGFloat = UIScreen.main.bounds.width * 0.65
     @Published var leftEdge: CGFloat = -UIScreen.main.bounds.width * 0.65
     @Published var isolatedImages: [UIImage] = []
+    @Published var shake: Bool = false
 
     func toggleDrawingCanvas() {
         showDrawingCanvas.toggle()
@@ -44,6 +45,12 @@ class ScenarioViewModel: ObservableObject {
                     self.animalX = self.rightEdge
                 }
             }
+        }
+    }
+    
+    func startShakeAnimation() {
+        withAnimation(Animation.easeInOut(duration: 0.05).repeatForever(autoreverses: true)) {
+            self.shake.toggle()
         }
     }
     

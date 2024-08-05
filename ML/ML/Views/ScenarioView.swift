@@ -19,15 +19,19 @@ struct ScenarioView: View {
             BackgroundView()
             
             AnimalView()
-                .offset(x: viewModel.animalX, y: viewModel.animalY)
-                .rotationEffect(.degrees(rotationAngle))
+                .offset(x: viewModel.animalX * 0, y: viewModel.animalY)
+                .rotationEffect(.degrees(viewModel.shake ? 4 : -4))
                 .onAppear {
-                    startRotationAnimation()
-                    viewModel.startWaveAnimation(duration: 3.0)
+                    viewModel.startShakeAnimation()
                 }
-                .onChange(of: viewModel.animalX) {
-                    viewModel.isFlipped.toggle()
-                }
+                // .rotationEffect(.degrees(rotationAngle))
+                // .onAppear {
+                    // startRotationAnimation()
+//                    viewModel.startShakeAnimation(duration: 3.0, rotationAngle: $rotationAngle)
+//                }
+//                .onChange(of: viewModel.animalX) {
+//                    viewModel.isFlipped.toggle()
+//                }
             
             DrawingButtonView()
         }
