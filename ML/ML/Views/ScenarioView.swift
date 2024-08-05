@@ -21,7 +21,7 @@ struct ScenarioView: View {
             // Horizontal Animation
             AnimalView()
                 .offset(x: viewModel.animalX, y: viewModel.animalY)
-                 .onAppear {
+                .onAppear {
                      viewModel.startHorizontalAnimation(duration: 3.0)
                 }
                 .onChange(of: viewModel.animalX) {
@@ -31,8 +31,8 @@ struct ScenarioView: View {
             // Wave Animation
             AnimalView()
                 .offset(x: viewModel.animalX, y: viewModel.animalY)
-                 .rotationEffect(.degrees(rotationAngle))
-                 .onAppear {
+                .rotationEffect(.degrees(rotationAngle))
+                .onAppear {
                      startRotationAnimation()
                      viewModel.startWaveAnimation(duration: 3.0)
                 }
@@ -99,3 +99,15 @@ struct ScenarioView: View {
         }
     }
 }
+
+// ORGANIZAR MVVM
+// CRIAR ENUM AnimationType
+// IDENTIFICAR ARGUMENTOS VARIÁVEIS
+//      initialX and initialY
+//      animationType
+//          horizontal: duration
+//          wave: duration e rotationAngle
+//          shake: --
+// CRIAR FUNÇÃO A SER APLICADA EM ANIMALVIEW()
+//      argumentos obrigatórios: initialX, initialY, animationType
+//      argumentos opcionais: duration e rotationAngle
