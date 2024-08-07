@@ -15,7 +15,7 @@ struct ScenarioView: View {
         ZStack {
             BackgroundView()
             
-
+            
             AnimalView()
                 .offset(x: viewModel.animalPosition)
                 .onAppear {
@@ -23,16 +23,17 @@ struct ScenarioView: View {
                 }
                 .onChange(of: viewModel.animalPosition) {
                     viewModel.isFlipped.toggle()
-
-            GeometryReader {geometry in
-                ForEach(viewModel.isolatedImages, id: \.self) { image in
-                    Image(uiImage: image)
-                        .resizable()
-                        .frame(width: 500, height: 500)
-                        .position(x: geometry.size.width/2 - 50, y: geometry.size.height/2 - 50)
                     
+                    GeometryReader {geometry in
+                        ForEach(viewModel.isolatedImages, id: \.self) { image in
+                            Image(uiImage: image)
+                                .resizable()
+                                .frame(width: 500, height: 500)
+                                .position(x: geometry.size.width/2 - 50, y: geometry.size.height/2 - 50)
+                            
+                        }
+                    }
                 }
-            
             DrawingButtonView()
         }
     }
@@ -65,7 +66,7 @@ struct ScenarioView: View {
         }
         .padding()
     }
-
+    
     private func AnimalView() -> some View {
         ForEach(viewModel.isolatedImages, id: \.self) { image in
             Image(uiImage: image)
