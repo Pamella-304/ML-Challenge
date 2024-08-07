@@ -14,37 +14,48 @@ struct ScenarioView: View {
         ZStack {
             BackgroundView()
             
-            // Horizontal Animation
-            AnimalView()
-                .offset(x: viewModel.animalX, y: viewModel.animalY)
-                .onAppear {
-                     viewModel.startHorizontalAnimation(duration: 3.0)
-                }
-                .onChange(of: viewModel.animalX) {
-                    viewModel.isFlipped.toggle()
-                }
-            
-            // Wave Animation
-            AnimalView()
-                .offset(x: viewModel.animalX, y: viewModel.animalY)
-                .rotationEffect(.degrees(viewModel.rotationAngle))
-                .onAppear {
-                     viewModel.startRotationAnimation()
-                     viewModel.startWaveAnimation(duration: 3.0)
-                }
-                .onChange(of: viewModel.animalX) {
-                    viewModel.isFlipped.toggle()
-                }
-            
-            // Shake Animation
-            AnimalView()
-                .rotationEffect(.degrees(viewModel.shake ? 4 : -4))
-                .onAppear {
-                    viewModel.startShakeAnimation()
-                }
+            animatedAnimalView(initialX: viewModel.animalX,
+                               initialY: viewModel.animalY,
+                               animationType: .wave(duration: 3.0))
 
             DrawingButtonView()
         }
+    }
+    
+    @ViewBuilder
+    private func animatedAnimalView(initialX: CGFloat, initialY: CGFloat, animationType: AnimationType) -> some View {
+        AnimalView()
+            .offset(x: viewModel.animalX, y: viewModel.animalY)
+            .rotationEffect(.degrees({
+                switch animationType {
+                case .wave:
+                    return viewModel.rotationAngle
+                case .shake:
+                    return viewModel.shake ? 4 : -4
+                default:
+                    return 0
+                }
+            }()))
+            .onAppear {
+                switch animationType {
+                case .horizontal(let duration):
+                    viewModel.startHorizontalAnimation(duration: duration)
+                case .wave(let duration):
+                    viewModel.startRotationAnimation()
+                    viewModel.startWaveAnimation(duration: duration)
+                case .shake:
+                    viewModel.startShakeAnimation()
+                }
+            }
+            .onChange(of: viewModel.animalX) {
+                print("animalX changed to: \(viewModel.animalX)")
+                if case .horizontal = animationType {
+                    viewModel.isFlipped.toggle()
+                } else if case .wave = animationType {
+                    viewModel.isFlipped.toggle()
+                }
+            }
+
     }
     
     private func BackgroundView() -> some View {
@@ -87,15 +98,3 @@ struct ScenarioView: View {
         }
     }
 }
-
-// ORGANIZAR MVVM - OK
-// CRIAR ENUM AnimationType - OK
-// IDENTIFICAR ARGUMENTOS VARIÁVEIS
-//      initialX and initialY
-//      animationType
-//          horizontal: duration
-//          wave: duration e rotationAngle
-//          shake: --
-// CRIAR FUNÇÃO A SER APLICADA EM ANIMALVIEW()
-//      argumentos obrigatórios: initialX, initialY, animationType
-//      argumentos opcionais: duration e rotationAngle
