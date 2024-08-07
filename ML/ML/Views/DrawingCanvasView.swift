@@ -16,12 +16,13 @@ struct DrawingCanvasView: View {
     @Environment(\.undoManager) private var undoManager
     var onAdd: (UIImage) -> Void
     
+    
     var body: some View {
         ZStack{
             Color.purple
                 .ignoresSafeArea()
             VStack {
-                MyCanvas(canvasView: $viewModel.canvasView)                
+                MyCanvas(canvasView: $viewModel.canvasView)
                     .padding(50)
                 
                 Button(action: {
@@ -59,14 +60,12 @@ struct DrawingCanvasView: View {
                 }
                 
                 Button(action: {
-                   // print("action initiated")
-                    viewModel.processDrawing { image in
-                        if let image = image {
-                           // print("processed image: \(image)")
-                            onAdd(image)
-                          //  print("Image gotten")
+                    // print("action initiated")
+                    viewModel.processDrawing { isolatedImage in
+                        if let isolatedImage = isolatedImage {
+                            onAdd(isolatedImage)
                         } else {
-                           // print("failed to process image")
+                            print("failed to process image")
                         }
                     }
                 }) {
@@ -77,11 +76,13 @@ struct DrawingCanvasView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
-
+                
             }
         }
     }
+    
 }
+
 
 struct MyCanvas: UIViewRepresentable {
     @Binding var canvasView: PKCanvasView

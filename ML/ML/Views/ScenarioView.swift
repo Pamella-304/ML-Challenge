@@ -26,6 +26,7 @@ struct ScenarioView: View {
                         .resizable()
                         .frame(width: 500, height: 500)
                         .position(x: geometry.size.width/2 - 50, y: geometry.size.height/2 - 50)
+                    
                 }
             }
             
