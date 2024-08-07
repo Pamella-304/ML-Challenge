@@ -28,6 +28,10 @@ class ScenarioViewModel: ObservableObject {
                     self.animalPosition = self.rightEdge
                 }
             }
+
+    func addImage(_ image: UIImage) {
+            isolatedImages.append(image)
+      
         }
     }
     
