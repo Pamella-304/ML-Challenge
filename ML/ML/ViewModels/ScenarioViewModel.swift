@@ -6,7 +6,12 @@
 //
 
 import SwiftUI
-import Combine
+
+enum AnimationType {
+    case horizontal
+    case wave
+    case shake
+}
 
 class ScenarioViewModel: ObservableObject {
     // Positions

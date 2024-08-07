@@ -89,7 +89,7 @@ struct ScenarioView: View {
 }
 
 // ORGANIZAR MVVM - OK
-// CRIAR ENUM AnimationType
+// CRIAR ENUM AnimationType - OK
 // IDENTIFICAR ARGUMENTOS VARIÁVEIS
 //      initialX and initialY
 //      animationType
