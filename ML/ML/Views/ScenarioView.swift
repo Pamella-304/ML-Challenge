@@ -9,10 +9,6 @@ import SwiftUI
 
 struct ScenarioView: View {
     @StateObject private var viewModel = ScenarioViewModel()
-    @State private var rotationAngle: Double = 0
-    @State private var timer: Timer?
-    
-    let angles: [Double] = [0, 5, 10, 15, 20, 25, 30]
     
     var body: some View {
         ZStack {
@@ -31,9 +27,9 @@ struct ScenarioView: View {
             // Wave Animation
             AnimalView()
                 .offset(x: viewModel.animalX, y: viewModel.animalY)
-                .rotationEffect(.degrees(rotationAngle))
+                .rotationEffect(.degrees(viewModel.rotationAngle))
                 .onAppear {
-                     startRotationAnimation()
+                     viewModel.startRotationAnimation()
                      viewModel.startWaveAnimation(duration: 3.0)
                 }
                 .onChange(of: viewModel.animalX) {
@@ -90,17 +86,9 @@ struct ScenarioView: View {
                 .scaleEffect(x: viewModel.isFlipped ? -1 : 1, y: 1)
         }
     }
-    
-    func startRotationAnimation() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true) { _ in
-            withAnimation {
-                rotationAngle = angles.randomElement() ?? 0
-            }
-        }
-    }
 }
 
-// ORGANIZAR MVVM
+// ORGANIZAR MVVM - OK
 // CRIAR ENUM AnimationType
 // IDENTIFICAR ARGUMENTOS VARIÁVEIS
 //      initialX and initialY
