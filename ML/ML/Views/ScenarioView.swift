@@ -48,7 +48,6 @@ struct ScenarioView: View {
                 }
             }
             .onChange(of: viewModel.animalX) {
-                print("animalX changed to: \(viewModel.animalX)")
                 if case .horizontal = animationType {
                     viewModel.isFlipped.toggle()
                 } else if case .wave = animationType {
