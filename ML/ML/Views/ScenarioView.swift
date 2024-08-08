@@ -15,7 +15,6 @@ struct ScenarioView: View {
         ZStack {
             BackgroundView()
             
-            
             AnimalView()
                 .offset(x: viewModel.animalPosition)
                 .onAppear {

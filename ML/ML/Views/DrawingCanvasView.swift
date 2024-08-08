@@ -10,6 +10,7 @@ import PencilKit
 
 
 
+
 struct DrawingCanvasView: View {
     
     @ObservedObject var viewModel: DrawingCanvasViewModel
@@ -60,7 +61,8 @@ struct DrawingCanvasView: View {
                 }
                 
                 Button(action: {
-                    // print("action initiated")
+                    
+                    
                     viewModel.processDrawing { isolatedImage in
                         if let isolatedImage = isolatedImage {
                             onAdd(isolatedImage)
@@ -78,6 +80,8 @@ struct DrawingCanvasView: View {
                 }
                 
             }
+        }.onAppear{
+            //viewModel.resetCanvas()
         }
     }
     
