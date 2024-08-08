@@ -23,9 +23,9 @@ class DrawingCanvasViewModel: ObservableObject {
         
     }
     
+    @MainActor
     func processDrawing(completion: @escaping (UIImage?) -> Void) {
                 
-        DispatchQueue.main.async {
             self.canvasView.layoutIfNeeded()
             
             print("dimensoes do canvas")
@@ -44,15 +44,20 @@ class DrawingCanvasViewModel: ObservableObject {
             print(self.currentDrawing!)
             
             if let currentDrawing = self.currentDrawing {
+                
                 self.imageProcessor.isolateDrawing(from: currentDrawing) { [weak self] isolatedImage in
+                    
+                    DispatchQueue.main.async {
                         self?.isolatedImage = isolatedImage
                         completion(isolatedImage)
+                    }
+                        
                 }
+                
             } else {
                     print("Failed to process drawing")
                     completion(nil)
                 }
-            }
         }
         
     func resetCanvas() {
