@@ -98,7 +98,9 @@ struct MyCanvas: UIViewRepresentable {
         return canvasView
     }
     
-    func updateUIView(_ canvasView: PKCanvasView, context: Context) { }
+    func updateUIView(_ canvasView: PKCanvasView, context: Context) { 
+        //
+    }
 }
 
 
