@@ -3,7 +3,6 @@
 //  ML
 //
 //  Created by Pamella Alvarenga on 31/07/24.
-//import Vision
 import UIKit
 import Vision
 import CoreML
@@ -13,9 +12,6 @@ class ImageProcessor {
     
     func isolateDrawing(from image: UIImage, completion: @escaping (UIImage?) -> Void) {
         do {
-            
-            
-            
             let config = MLModelConfiguration()
             let model = try SeaAnimalClasses_1(configuration: config)
             let visionModel = try VNCoreMLModel(for: model.model)
