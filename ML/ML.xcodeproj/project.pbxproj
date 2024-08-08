@@ -15,6 +15,7 @@
 		61FCD8D92C5A703300940C1C /* DrawingCanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FCD8D82C5A703300940C1C /* DrawingCanvasViewModel.swift */; };
 		61FCD8DB2C5A704A00940C1C /* ScenarioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FCD8DA2C5A704A00940C1C /* ScenarioViewModel.swift */; };
 		61FCD8DE2C5A803300940C1C /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FCD8DD2C5A803200940C1C /* ImageProcessor.swift */; };
+		628FA7F62C64DEE800D3BAE7 /* AnimalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628FA7F52C64DEE800D3BAE7 /* AnimalModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		61FCD8D82C5A703300940C1C /* DrawingCanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCanvasViewModel.swift; sourceTree = "<group>"; };
 		61FCD8DA2C5A704A00940C1C /* ScenarioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioViewModel.swift; sourceTree = "<group>"; };
 		61FCD8DD2C5A803200940C1C /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
+		628FA7F52C64DEE800D3BAE7 /* AnimalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				61FCD8DD2C5A803200940C1C /* ImageProcessor.swift */,
+				628FA7F52C64DEE800D3BAE7 /* AnimalModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61DBC2372C5986CA0007F69D /* ScenarioView.swift in Sources */,
+				628FA7F62C64DEE800D3BAE7 /* AnimalModel.swift in Sources */,
 				61DBC2352C5986CA0007F69D /* MLApp.swift in Sources */,
 				61FCD8DB2C5A704A00940C1C /* ScenarioViewModel.swift in Sources */,
 				61DBC2432C5989D20007F69D /* DrawingCanvasView.swift in Sources */,
