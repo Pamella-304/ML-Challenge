@@ -30,12 +30,12 @@ class ImageProcessor {
                     return
                 }
                 
-                print("results")
-                print(results)
-                print("firstResult")
-                print(firstResult)
-                
-                print("Detected category: \(firstResult.identifier)")
+//                print("results")
+//                print(results)
+//                print("firstResult")
+//                print(firstResult)
+//                
+//                print("Detected category: \(firstResult.identifier)")
                 completion(image)
                 
             }
