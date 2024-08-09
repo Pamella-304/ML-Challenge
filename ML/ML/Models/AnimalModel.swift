@@ -7,20 +7,18 @@
 
 import SwiftUI
 
-class AnimalModel {
+class Animal: ObservableObject {
     let name: String
-    var image: UIImage
-    var positionX: CGFloat
-    var positionY: CGFloat
     let animationType: AnimationType
-    var animationDuration: Double
+    @Published var positionX: CGFloat
+    @Published var positionY: CGFloat
+    @Published var image: UIImage
     
-    init(name: String, image: UIImage, positionX: CGFloat, positionY: CGFloat, animationType: AnimationType, animationDuration: Double) {
+    init(name: String,  animationType: AnimationType, positionX: CGFloat, positionY: CGFloat, image: UIImage) {
         self.name = name
-        self.image = image
+        self.animationType = animationType
         self.positionX = positionX
         self.positionY = positionY
-        self.animationType = animationType
-        self.animationDuration = animationDuration
+        self.image = image
     }
 }
