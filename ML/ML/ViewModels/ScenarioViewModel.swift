@@ -8,8 +8,8 @@
 import SwiftUI
 
 enum AnimationType {
-    case horizontal(duration: Double)
-    case wave(duration: Double)
+    case horizontal
+    case wave
     case shake
 }
 
@@ -34,9 +34,9 @@ class ScenarioViewModel: ObservableObject {
     @Published var showDrawingCanvas = false
     @Published var isolatedImages: [UIImage] = []
     
-    func startHorizontalAnimation(duration: Double) {
-        Timer.scheduledTimer(withTimeInterval: duration, repeats: true) { timer in
-            withAnimation(Animation.linear(duration: duration)) {
+    func startHorizontalAnimation() {
+        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { timer in
+            withAnimation(Animation.linear(duration: 3.0)) {
                 if self.animalX == self.rightEdge {
                     self.animalX = self.leftEdge
                 } else {
@@ -46,9 +46,9 @@ class ScenarioViewModel: ObservableObject {
         }
     }
     
-    func startWaveAnimation(duration: Double) {
-        Timer.scheduledTimer(withTimeInterval: duration, repeats: true) { timer in
-            withAnimation(Animation.linear(duration: duration)) {
+    func startWaveAnimation() {
+        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { timer in
+            withAnimation(Animation.linear(duration: 3.0)) {
                 if self.animalX == self.rightEdge {
                     self.animalX = self.leftEdge
                 } else {

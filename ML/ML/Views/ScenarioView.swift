@@ -16,7 +16,7 @@ struct ScenarioView: View {
             
             animatedAnimalView(initialX: viewModel.animalX,
                                initialY: viewModel.animalY,
-                               animationType: .wave(duration: 3.0))
+                               animationType: .shake)
 
             DrawingButtonView()
         }
@@ -38,11 +38,11 @@ struct ScenarioView: View {
             }()))
             .onAppear {
                 switch animationType {
-                case .horizontal(let duration):
-                    viewModel.startHorizontalAnimation(duration: duration)
-                case .wave(let duration):
+                case .horizontal:
+                    viewModel.startHorizontalAnimation()
+                case .wave:
                     viewModel.startRotationAnimation()
-                    viewModel.startWaveAnimation(duration: duration)
+                    viewModel.startWaveAnimation()
                 case .shake:
                     viewModel.startShakeAnimation()
                 }
