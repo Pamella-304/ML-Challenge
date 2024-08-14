@@ -61,8 +61,6 @@ struct DrawingCanvasView: View {
                 }
                 
                 Button(action: {
-                    
-                    
                     viewModel.processDrawing { isolatedImage in
                         if let isolatedImage = isolatedImage {
                             onAdd(isolatedImage)
