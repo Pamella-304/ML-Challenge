@@ -14,6 +14,16 @@ enum AnimationType {
 }
 
 class ScenarioViewModel: ObservableObject {
+    // Positions
+    @Published var animalX: CGFloat = UIScreen.main.bounds.width * 0.65 // starts at right edge
+    @Published var animalY: CGFloat = -UIScreen.main.bounds.height * 0 // starts at middle
+    @Published var horizontalMiddle: CGFloat = UIScreen.main.bounds.width * 0
+    @Published var rightEdge: CGFloat = UIScreen.main.bounds.width * 0.65
+    @Published var leftEdge: CGFloat = -UIScreen.main.bounds.width * 0.65
+    @Published var verticalMiddle: CGFloat = UIScreen.main.bounds.height * 0
+    @Published var bottomEdge: CGFloat = UIScreen.main.bounds.height * 0.4
+    @Published var topEdge: CGFloat = -UIScreen.main.bounds.height * 0.4
+    
     // Animation Helpers
     @Published var rotationAngle: Double = 0
     let angles: [Double] = [0, 5, 10, 15, 20, 25]
@@ -27,10 +37,10 @@ class ScenarioViewModel: ObservableObject {
     func startHorizontalAnimation(duration: Double) {
         Timer.scheduledTimer(withTimeInterval: duration, repeats: true) { timer in
             withAnimation(Animation.linear(duration: duration)) {
-                if self.animalX == Positions.rightEdge {
-                    self.animalX = Positions.leftEdge
+                if self.animalX == self.rightEdge {
+                    self.animalX = self.leftEdge
                 } else {
-                    self.animalX = Positions.rightEdge
+                    self.animalX = self.rightEdge
                 }
             }
         }
@@ -39,10 +49,10 @@ class ScenarioViewModel: ObservableObject {
     func startWaveAnimation(duration: Double) {
         Timer.scheduledTimer(withTimeInterval: duration, repeats: true) { timer in
             withAnimation(Animation.linear(duration: duration)) {
-                if self.animalX == Positions.rightEdge {
-                    self.animalX = Positions.leftEdge
+                if self.animalX == self.rightEdge {
+                    self.animalX = self.leftEdge
                 } else {
-                    self.animalX = Positions.rightEdge
+                    self.animalX = self.rightEdge
                 }
             }
         }
