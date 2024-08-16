@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ScenarioView: View {
     @StateObject private var viewModel = ScenarioViewModel()
+    @StateObject var canvasVM = DrawingCanvasViewModel()
     
     var body: some View {
         ZStack {
@@ -76,16 +77,16 @@ struct ScenarioView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                 
             }.sheet(isPresented: $viewModel.showDrawingCanvas) {
-                DrawingCanvasView(viewModel: DrawingCanvasViewModel()) { image in
+                DrawingCanvasView(viewModel: canvasVM) { image in
                     viewModel.addImage(image)
                 }
             }
-
+            .padding()
             Spacer()
         }
         .padding()
     }
-
+    
     private func AnimalView() -> some View {
         ForEach(viewModel.isolatedImages, id: \.self) { image in
             //Image(uiImage: image)

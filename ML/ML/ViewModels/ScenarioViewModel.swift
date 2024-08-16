@@ -77,6 +77,9 @@ class ScenarioViewModel: ObservableObject {
     }
     
     func addImage(_ image: UIImage) {
-        isolatedImages.append(image)
+        DispatchQueue.main.async {
+            self.isolatedImages.append(image)
+        }
     }
+    
 }
