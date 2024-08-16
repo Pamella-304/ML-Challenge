@@ -81,6 +81,7 @@ struct DrawingCanvasView: View {
                 
             }
         }.onAppear{
+            viewModel.setupToolPicker()
         }
     }
     
@@ -98,6 +99,7 @@ struct MyCanvas: UIViewRepresentable {
     }
     
     func updateUIView(_ canvasView: PKCanvasView, context: Context) { 
+        
     }
 }
 

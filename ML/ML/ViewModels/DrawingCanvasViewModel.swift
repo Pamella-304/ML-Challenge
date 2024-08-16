@@ -16,12 +16,22 @@ class DrawingCanvasViewModel: ObservableObject {
     @Published var croppedImage: UIImage?
     @Published var currentDrawing: UIImage?
     @Published var canvasView: PKCanvasView
+    var toolPicker: PKToolPicker
     
     private var imageProcessor: ImageProcessor // instanciando a classe que trata da conversao necessaria para transformar o conteudo desenhado no canvas em um objeto animável e apresentável em outra view
     
     init() {
         self.canvasView = PKCanvasView()
         self.imageProcessor = ImageProcessor()
+        self.toolPicker = PKToolPicker()
+
+    }
+    
+    
+    func setupToolPicker() {
+        toolPicker.setVisible(true, forFirstResponder: canvasView)
+        toolPicker.addObserver(canvasView)
+        canvasView.becomeFirstResponder()
         
     }
     
@@ -29,9 +39,6 @@ class DrawingCanvasViewModel: ObservableObject {
     func processDrawing(completion: @escaping (UIImage?) -> Void) {
         
         self.canvasView.layoutIfNeeded()
-        
-        print("dimensoes do canvas")
-        print(self.canvasView.bounds)
         
         guard !self.canvasView.bounds.isEmpty else {
             print("Canvas bounds are empty")
@@ -41,10 +48,7 @@ class DrawingCanvasViewModel: ObservableObject {
         }
         let drawingImage = self.canvasView.drawing.image(from: self.canvasView.bounds, scale: UIScreen.main.scale)
         self.currentDrawing = drawingImage
-        
-        print("currentDrawing")
-        print(self.currentDrawing!)
-        
+                
         if let currentDrawing = self.currentDrawing {
             
             self.imageProcessor.isolateDrawing(from: currentDrawing) { [weak self] isolatedImage in
@@ -56,7 +60,6 @@ class DrawingCanvasViewModel: ObservableObject {
                         completion(croppedImage)
                     }
                 } else {
-                    print("Falha ao recortar a imagem")
                     completion(nil)
                 }
                 
@@ -64,7 +67,6 @@ class DrawingCanvasViewModel: ObservableObject {
             
             
         } else {
-            print("Failed to process drawing")
             completion(nil)
         }
     }
@@ -121,7 +123,6 @@ class DrawingCanvasViewModel: ObservableObject {
         }
         
         if minX > maxX || minY > maxY {
-            //print("Não foi encontrado conteúdo não transparente)
             return nil
         }
         
