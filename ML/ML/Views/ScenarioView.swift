@@ -17,7 +17,7 @@ struct ScenarioView: View {
             
             animatedAnimalView(initialX: viewModel.animalX,
                                initialY: viewModel.animalY,
-                               animationType: .shake)
+                               animationType: .wave)
 
             DrawingButtonView()
         }
@@ -89,8 +89,8 @@ struct ScenarioView: View {
     
     private func AnimalView() -> some View {
         ForEach(viewModel.isolatedImages, id: \.self) { image in
-            //Image(uiImage: image)
-            Image("tubarao") // used for tests
+            Image(uiImage: image)
+            // Image("tubarao") // used for tests
                 .resizable()
                 .frame(width: UIScreen.main.bounds.width * 0.3,
                        height: UIScreen.main.bounds.height * 0.4)
