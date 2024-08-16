@@ -63,9 +63,9 @@ struct DrawingCanvasView: View {
                 Button(action: {
                     
                     
-                    viewModel.processDrawing { isolatedImage in
-                        if let isolatedImage = isolatedImage {
-                            onAdd(isolatedImage)
+                    viewModel.processDrawing { croppedImage in
+                        if let croppedImage = croppedImage {
+                            onAdd(croppedImage)
                         } else {
                             print("failed to process image")
                         }
@@ -81,7 +81,6 @@ struct DrawingCanvasView: View {
                 
             }
         }.onAppear{
-            //viewModel.resetCanvas()
         }
     }
     
@@ -99,7 +98,6 @@ struct MyCanvas: UIViewRepresentable {
     }
     
     func updateUIView(_ canvasView: PKCanvasView, context: Context) { 
-        //
     }
 }
 

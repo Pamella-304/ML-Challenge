@@ -7,10 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6129B7F12C6393FE0020112D /* SeaAnimalClasses_1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6129B7F02C6393FE0020112D /* SeaAnimalClasses_1.mlmodel */; };
-		615106F72C5D06E3000D38A0 /* SeaAnimalClasses 3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 615106F32C5D06E3000D38A0 /* SeaAnimalClasses 3.mlmodel */; };
-		615106F82C5D06E3000D38A0 /* SeaAnimalClasses_2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 615106F42C5D06E3000D38A0 /* SeaAnimalClasses_2.mlmodel */; };
-		615106F92C5D06E3000D38A0 /* SeaAnimalClasses 4.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 615106F52C5D06E3000D38A0 /* SeaAnimalClasses 4.mlmodel */; };
+		610794132C6F70A200CD159B /* AnimalClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 610794122C6F70A200CD159B /* AnimalClassifier.mlmodel */; };
 		61DBC2352C5986CA0007F69D /* MLApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DBC2342C5986CA0007F69D /* MLApp.swift */; };
 		61DBC2372C5986CA0007F69D /* ScenarioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DBC2362C5986CA0007F69D /* ScenarioView.swift */; };
 		61DBC2392C5986CB0007F69D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61DBC2382C5986CB0007F69D /* Assets.xcassets */; };
@@ -22,10 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6129B7F02C6393FE0020112D /* SeaAnimalClasses_1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SeaAnimalClasses_1.mlmodel; sourceTree = "<group>"; };
-		615106F32C5D06E3000D38A0 /* SeaAnimalClasses 3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "SeaAnimalClasses 3.mlmodel"; sourceTree = "<group>"; };
-		615106F42C5D06E3000D38A0 /* SeaAnimalClasses_2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SeaAnimalClasses_2.mlmodel; sourceTree = "<group>"; };
-		615106F52C5D06E3000D38A0 /* SeaAnimalClasses 4.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "SeaAnimalClasses 4.mlmodel"; sourceTree = "<group>"; };
+		610794122C6F70A200CD159B /* AnimalClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = AnimalClassifier.mlmodel; sourceTree = "<group>"; };
 		61DBC2312C5986CA0007F69D /* ML.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ML.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61DBC2342C5986CA0007F69D /* MLApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLApp.swift; sourceTree = "<group>"; };
 		61DBC2362C5986CA0007F69D /* ScenarioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioView.swift; sourceTree = "<group>"; };
@@ -51,10 +45,7 @@
 		615106F12C5D06C9000D38A0 /* MachineLearningModels */ = {
 			isa = PBXGroup;
 			children = (
-				6129B7F02C6393FE0020112D /* SeaAnimalClasses_1.mlmodel */,
-				615106F42C5D06E3000D38A0 /* SeaAnimalClasses_2.mlmodel */,
-				615106F32C5D06E3000D38A0 /* SeaAnimalClasses 3.mlmodel */,
-				615106F52C5D06E3000D38A0 /* SeaAnimalClasses 4.mlmodel */,
+				610794122C6F70A200CD159B /* AnimalClassifier.mlmodel */,
 			);
 			path = MachineLearningModels;
 			sourceTree = "<group>";
@@ -193,15 +184,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				610794132C6F70A200CD159B /* AnimalClassifier.mlmodel in Sources */,
 				61DBC2372C5986CA0007F69D /* ScenarioView.swift in Sources */,
-				6129B7F12C6393FE0020112D /* SeaAnimalClasses_1.mlmodel in Sources */,
 				61DBC2352C5986CA0007F69D /* MLApp.swift in Sources */,
 				61FCD8DB2C5A704A00940C1C /* ScenarioViewModel.swift in Sources */,
 				61DBC2432C5989D20007F69D /* DrawingCanvasView.swift in Sources */,
 				61FCD8DE2C5A803300940C1C /* ImageProcessor.swift in Sources */,
-				615106F82C5D06E3000D38A0 /* SeaAnimalClasses_2.mlmodel in Sources */,
-				615106F92C5D06E3000D38A0 /* SeaAnimalClasses 4.mlmodel in Sources */,
-				615106F72C5D06E3000D38A0 /* SeaAnimalClasses 3.mlmodel in Sources */,
 				61FCD8D92C5A703300940C1C /* DrawingCanvasViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

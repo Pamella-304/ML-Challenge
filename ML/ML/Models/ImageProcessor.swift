@@ -13,7 +13,7 @@ class ImageProcessor {
     func isolateDrawing(from image: UIImage, completion: @escaping (UIImage?) -> Void) {
         do {
             let config = MLModelConfiguration()
-            let model = try SeaAnimalClasses_1(configuration: config)
+            let model = try AnimalClassifier(configuration: config)
             let visionModel = try VNCoreMLModel(for: model.model)
             
             let classificationRequest = VNCoreMLRequest(model: visionModel) { (request, error) in
