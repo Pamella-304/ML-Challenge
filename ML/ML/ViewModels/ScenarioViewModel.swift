@@ -19,64 +19,69 @@ struct Positions {
 }
 
 class ScenarioViewModel: ObservableObject {
-    // Animal Data
-    @Published var animalName: String?
-    @Published var animalPositionX: CGFloat = 0
-    @Published var animalPositionY: CGFloat = 0
-    @Published var animalImage: UIImage = UIImage()
-    @Published var animationType: AnimationType = .horizontal
-    
-    // Animation Helpers
-    @Published var rotationAngle: Double = 0
-    let angles: [Double] = [0, 5, 10, 15, 20, 25]
-    @Published var isFlipped: Bool = false
-    @Published var shake: Bool = false
-    
     // Canvas Helpers
     @Published var showDrawingCanvas = false
     @Published var isolatedImages: [UIImage] = []
     
-    func setAnimal(_ animal: Animal) {
-        animalPositionX = animal.positionX
-        animalPositionY = animal.positionY
-        animalImage = animal.image
-        animationType = animal.animationType
+    @Published var animals: [Animal] = []
+    
+    func addAnimal(_ animal: Animal) {
+        DispatchQueue.main.async {
+            self.animals.append(animal)
+        }
+    }
+    
+    func startHorizontalAnimation(for index: Int) {
+        guard index < animals.count else { return }
+        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { timer in
+            if self.animals[index].positionX == Positions.rightEdge {
+                self.animals[index].isFlipped = true
+            } else {
+                self.animals[index].isFlipped = false
+            }
+            
+            withAnimation(Animation.linear(duration: 3.0)) {
+                if self.animals[index].positionX == Positions.rightEdge {
+                    self.animals[index].positionX = Positions.leftEdge
+                } else {
+                    self.animals[index].positionX = Positions.rightEdge
+                }
+            }
+        }
     }
 
-    func startHorizontalAnimation() {
+    func startWaveAnimation(for index: Int) {
+        guard index < animals.count else { return }
         Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { timer in
+            if self.animals[index].positionX == Positions.rightEdge {
+                self.animals[index].isFlipped = true
+            } else {
+                self.animals[index].isFlipped = false
+            }
+            
             withAnimation(Animation.linear(duration: 3.0)) {
-                if self.animalPositionX == Positions.rightEdge {
-                    self.animalPositionX = Positions.leftEdge
+                if self.animals[index].positionX == Positions.rightEdge {
+                    self.animals[index].positionX = Positions.leftEdge
                 } else {
-                    self.animalPositionX = Positions.rightEdge
+                    self.animals[index].positionX = Positions.rightEdge
                 }
             }
         }
     }
+
     
-    func startWaveAnimation() {
-        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { timer in
-            withAnimation(Animation.linear(duration: 3.0)) {
-                if self.animalPositionX == Positions.rightEdge {
-                    self.animalPositionX = Positions.leftEdge
-                } else {
-                    self.animalPositionX = Positions.rightEdge
-                }
-            }
-        }
-    }
-    
-    func startShakeAnimation() {
+    func startShakeAnimation(for index: Int) {
+        guard index < animals.count else { return }
         withAnimation(Animation.easeInOut(duration: 0.05).repeatForever(autoreverses: true)) {
-            self.shake.toggle()
+            self.animals[index].shake.toggle()
         }
     }
     
-    func startRotationAnimation() {
+    func startRotationAnimation(for index: Int) {
+        guard index < animals.count else { return }
         Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true) { timer in
             withAnimation {
-                self.rotationAngle = self.angles.randomElement() ?? 0
+                self.animals[index].rotationAngle = self.animals[index].angles.randomElement() ?? 0
             }
         }
     }

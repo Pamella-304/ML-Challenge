@@ -15,50 +15,51 @@ struct ScenarioView: View {
         ZStack {
             BackgroundView()
             
-            if viewModel.animalName != nil {
-                animatedAnimalView()
+            ForEach(viewModel.animals.indices, id: \.self) { index in
+                animatedAnimalView(for: index)
             }
 
             DrawingButtonView()
         }
         .onAppear {
-            viewModel.animalName = "fish"
-            if let animalName = viewModel.animalName, let selectedAnimal = animals[animalName] {
-                viewModel.setAnimal(selectedAnimal)
-            }
+            viewModel.addAnimal(animals["fish"]!)
+            viewModel.addAnimal(animals["fish"]!)
+            viewModel.addAnimal(animals["fish"]!)
+            viewModel.addAnimal(animals["fish"]!)
+            viewModel.addAnimal(animals["shark"]!)
+            viewModel.addAnimal(animals["starfish"]!)
         }
     }
     
     @ViewBuilder
-    private func animatedAnimalView() -> some View {
-        AnimalView(animalImage: viewModel.animalImage)
-            .offset(x: viewModel.animalPositionX, y: viewModel.animalPositionY)
+    private func animatedAnimalView(for index: Int) -> some View {
+        var animal = viewModel.animals[index]
+        
+        Image(uiImage: animal.image)
+            .resizable()
+            .frame(width: UIScreen.main.bounds.width * 0.2,
+                   height: UIScreen.main.bounds.height * 0.3)
+            .scaleEffect(x: animal.isFlipped ? -1 : 1, y: 1)
+            .offset(x: animal.positionX, y: animal.positionY)
             .rotationEffect(.degrees({
-                switch viewModel.animationType {
+                switch animal.animationType {
                 case .wave:
-                    return viewModel.rotationAngle
+                    return animal.rotationAngle
                 case .shake:
-                    return viewModel.shake ? 1 : -1
+                    return animal.shake ? 1 : -1
                 default:
                     return 0
                 }
             }()))
             .onAppear {
-                switch viewModel.animationType {
+                switch animal.animationType {
                 case .horizontal:
-                    viewModel.startHorizontalAnimation()
+                    viewModel.startHorizontalAnimation(for: index)
                 case .wave:
-                    viewModel.startRotationAnimation()
-                    viewModel.startWaveAnimation()
+                    viewModel.startRotationAnimation(for: index)
+                    viewModel.startWaveAnimation(for: index)
                 case .shake:
-                    viewModel.startShakeAnimation()
-                }
-            }
-            .onChange(of: viewModel.animalPositionX) {
-                if case .horizontal = viewModel.animationType {
-                    viewModel.isFlipped.toggle()
-                } else if case .wave = viewModel.animationType {
-                    viewModel.isFlipped.toggle()
+                    viewModel.startShakeAnimation(for: index)
                 }
             }
     }
@@ -90,16 +91,5 @@ struct ScenarioView: View {
             Spacer()
         }
         .padding()
-    }
-    
-    private func AnimalView(animalImage: UIImage) -> some View {
-        ForEach(viewModel.isolatedImages, id: \.self) { image in
-            Image(uiImage: animalImage)
-            //Image("tubarao") // used for tests
-                .resizable()
-                .frame(width: UIScreen.main.bounds.width * 0.2,
-                       height: UIScreen.main.bounds.height * 0.3)
-                .scaleEffect(x: viewModel.isFlipped ? -1 : 1, y: 1)
-        }
     }
 }

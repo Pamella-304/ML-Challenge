@@ -20,6 +20,12 @@ struct Animal {
     var positionX: CGFloat
     var positionY: CGFloat
     let animationType: AnimationType
+    
+    // Animation state properties
+    var rotationAngle: Double = 0
+    var isFlipped: Bool = false
+    var shake: Bool = false
+    let angles: [Double] = [0, 5, 10, 15, 20, 25]
 }
 
 let animals: [String: Animal] = [
