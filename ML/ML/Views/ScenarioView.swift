@@ -33,7 +33,7 @@ struct ScenarioView: View {
     
     @ViewBuilder
     private func animatedAnimalView(for index: Int) -> some View {
-        var animal = viewModel.animals[index]
+        let animal = viewModel.animals[index]
         
         Image(uiImage: animal.image)
             .resizable()
