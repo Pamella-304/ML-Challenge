@@ -24,7 +24,7 @@ struct Animal {
 
 let animals: [String: Animal] = [
     "starfish": Animal(name: "starfish", image: UIImage(imageLiteralResourceName: "starfish"),
-                       positionX: Positions.horizontalMiddle,
+                       positionX: CGFloat.random(in: Positions.littleLeftEdge...Positions.littleRightEdge),
                        positionY: Positions.bottomEdge,
                        animationType: .shake),
     "shark": Animal(name: "shark", image: UIImage(imageLiteralResourceName: "shark"),
@@ -32,7 +32,7 @@ let animals: [String: Animal] = [
                     positionY: [Positions.bottomEdge, Positions.topEdge, Positions.verticalMiddle].randomElement() ?? 0,
                     animationType: .horizontal),
     "fish": Animal(name: "fish", image: UIImage(imageLiteralResourceName: "fish"),
-                   positionX: Positions.rightEdge,
+                   positionX: [Positions.leftEdge, Positions.rightEdge].randomElement() ?? 0,
                    positionY: Positions.verticalMiddle,
                    animationType: .wave)
 ]
