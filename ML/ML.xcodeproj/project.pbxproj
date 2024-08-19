@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		610794132C6F70A200CD159B /* AnimalClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 610794122C6F70A200CD159B /* AnimalClassifier.mlmodel */; };
+		610794152C6F796D00CD159B /* MyCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610794142C6F796D00CD159B /* MyCanvas.swift */; };
 		61DBC2352C5986CA0007F69D /* MLApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DBC2342C5986CA0007F69D /* MLApp.swift */; };
 		61DBC2372C5986CA0007F69D /* ScenarioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DBC2362C5986CA0007F69D /* ScenarioView.swift */; };
 		61DBC2392C5986CB0007F69D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61DBC2382C5986CB0007F69D /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		610794122C6F70A200CD159B /* AnimalClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = AnimalClassifier.mlmodel; sourceTree = "<group>"; };
+		610794142C6F796D00CD159B /* MyCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCanvas.swift; sourceTree = "<group>"; };
 		61DBC2312C5986CA0007F69D /* ML.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ML.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61DBC2342C5986CA0007F69D /* MLApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLApp.swift; sourceTree = "<group>"; };
 		61DBC2362C5986CA0007F69D /* ScenarioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioView.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 			children = (
 				61DBC2362C5986CA0007F69D /* ScenarioView.swift */,
 				61DBC2422C5989D20007F69D /* DrawingCanvasView.swift */,
+				610794142C6F796D00CD159B /* MyCanvas.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				610794152C6F796D00CD159B /* MyCanvas.swift in Sources */,
 				610794132C6F70A200CD159B /* AnimalClassifier.mlmodel in Sources */,
 				61DBC2372C5986CA0007F69D /* ScenarioView.swift in Sources */,
 				61DBC2352C5986CA0007F69D /* MLApp.swift in Sources */,
