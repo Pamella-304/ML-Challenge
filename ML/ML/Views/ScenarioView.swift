@@ -35,33 +35,49 @@ struct ScenarioView: View {
     private func animatedAnimalView(for index: Int) -> some View {
         let animal = viewModel.animals[index]
         
-        Image(uiImage: animal.image)
-            .resizable()
+        animalImage(for: animal)
             .frame(width: UIScreen.main.bounds.width * 0.2,
                    height: UIScreen.main.bounds.height * 0.3)
-            .scaleEffect(x: animal.isFlipped ? -1 : 1, y: 1)
+            .scaleEffect(x: scaleEffectX(for: animal), y: 1)
             .offset(x: animal.positionX, y: animal.positionY)
-            .rotationEffect(.degrees({
-                switch animal.animationType {
-                case .wave:
-                    return animal.rotationAngle
-                case .shake:
-                    return animal.shake ? 1 : -1
-                default:
-                    return 0
-                }
-            }()))
+            .rotationEffect(rotationAngle(for: animal))
             .onAppear {
-                switch animal.animationType {
-                case .horizontal:
-                    viewModel.startHorizontalAnimation(for: index)
-                case .wave:
-                    viewModel.startRotationAnimation(for: index)
-                    viewModel.startWaveAnimation(for: index)
-                case .shake:
-                    viewModel.startShakeAnimation(for: index)
-                }
+                handleAnimation(for: index)
             }
+    }
+
+    private func animalImage(for animal: Animal) -> some View {
+        Image(uiImage: animal.image)
+            .resizable()
+    }
+
+    private func scaleEffectX(for animal: Animal) -> CGFloat {
+        animal.isFlipped ? -1 : 1
+    }
+
+    private func rotationAngle(for animal: Animal) -> Angle {
+        switch animal.animationType {
+        case .wave:
+            return .degrees(animal.rotationAngle)
+        case .shake:
+            return .degrees(animal.shake ? 1 : -1)
+        default:
+            return .degrees(0)
+        }
+    }
+
+    private func handleAnimation(for index: Int) {
+        let animal = viewModel.animals[index]
+        
+        switch animal.animationType {
+        case .horizontal:
+            viewModel.startHorizontalAnimation(for: index)
+        case .wave:
+            viewModel.startRotationAnimation(for: index)
+            viewModel.startWaveAnimation(for: index)
+        case .shake:
+            viewModel.startShakeAnimation(for: index)
+        }
     }
     
     private func BackgroundView() -> some View {

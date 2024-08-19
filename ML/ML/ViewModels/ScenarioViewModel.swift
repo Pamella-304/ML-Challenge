@@ -75,8 +75,6 @@ class ScenarioViewModel: ObservableObject {
         }
     }
 
-
-    
     func startShakeAnimation(for index: Int) {
         guard index < animals.count else { return }
         withAnimation(Animation.easeInOut(duration: 0.05).repeatForever(autoreverses: true)) {
