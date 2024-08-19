@@ -76,24 +76,22 @@ struct ScenarioView: View {
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                 
-            }.sheet(isPresented: $viewModel.showDrawingCanvas) {
+            }.fullScreenCover(isPresented: $viewModel.showDrawingCanvas) {
                 DrawingCanvasView(viewModel: canvasVM) { image in
                     viewModel.addImage(image)
                 }
             }
-            .padding()
+           // Ajuste as dimensões internas
             Spacer()
         }
-        .padding()
     }
     
     private func AnimalView() -> some View {
         ForEach(viewModel.isolatedImages, id: \.self) { image in
             Image(uiImage: image)
-            //Image("tubarao") // used for tests
                 .resizable()
-                .frame(width: UIScreen.main.bounds.width * 0.3,
-                       height: UIScreen.main.bounds.height * 0.4)
+                .aspectRatio(contentMode: .fit)
+                .frame(width: UIScreen.main.bounds.width * 0.3)
                 .scaleEffect(x: viewModel.isFlipped ? -1 : 1, y: 1)
         }
     }
