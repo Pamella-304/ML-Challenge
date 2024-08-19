@@ -33,14 +33,17 @@ class ScenarioViewModel: ObservableObject {
     
     func startHorizontalAnimation(for index: Int) {
         guard index < animals.count else { return }
-        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { timer in
+        
+        let randomDuration = Double.random(in: 3...8)
+        
+        Timer.scheduledTimer(withTimeInterval: randomDuration, repeats: true) { timer in
             if self.animals[index].positionX == Positions.rightEdge {
                 self.animals[index].isFlipped = true
             } else {
                 self.animals[index].isFlipped = false
             }
             
-            withAnimation(Animation.linear(duration: 3.0)) {
+            withAnimation(Animation.linear(duration: randomDuration)) {
                 if self.animals[index].positionX == Positions.rightEdge {
                     self.animals[index].positionX = Positions.leftEdge
                 } else {
@@ -52,14 +55,17 @@ class ScenarioViewModel: ObservableObject {
 
     func startWaveAnimation(for index: Int) {
         guard index < animals.count else { return }
-        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { timer in
+        
+        let randomDuration = Double.random(in: 3...8)
+        
+        Timer.scheduledTimer(withTimeInterval: randomDuration, repeats: true) { timer in
             if self.animals[index].positionX == Positions.rightEdge {
                 self.animals[index].isFlipped = true
             } else {
                 self.animals[index].isFlipped = false
             }
             
-            withAnimation(Animation.linear(duration: 3.0)) {
+            withAnimation(Animation.linear(duration: randomDuration)) {
                 if self.animals[index].positionX == Positions.rightEdge {
                     self.animals[index].positionX = Positions.leftEdge
                 } else {
@@ -68,6 +74,7 @@ class ScenarioViewModel: ObservableObject {
             }
         }
     }
+
 
     
     func startShakeAnimation(for index: Int) {
