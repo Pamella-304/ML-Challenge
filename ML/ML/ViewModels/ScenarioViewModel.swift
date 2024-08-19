@@ -9,17 +9,22 @@ import SwiftUI
 
 struct Positions {
     static let horizontalMiddle: CGFloat = UIScreen.main.bounds.width * 0
+    static let littleRightEdge: CGFloat = UIScreen.main.bounds.width * 0.35
+    static let littleLeftEdge: CGFloat = -UIScreen.main.bounds.width * 0.35
     static let rightEdge: CGFloat = UIScreen.main.bounds.width * 0.65
     static let leftEdge: CGFloat = -UIScreen.main.bounds.width * 0.65
     static let verticalMiddle: CGFloat = UIScreen.main.bounds.height * 0
-    static let bottomEdge: CGFloat = UIScreen.main.bounds.height * 0.4
-    static let topEdge: CGFloat = -UIScreen.main.bounds.height * 0.4
+    static let bottomEdge: CGFloat = UIScreen.main.bounds.height * 0.3
+    static let topEdge: CGFloat = -UIScreen.main.bounds.height * 0.3
 }
 
 class ScenarioViewModel: ObservableObject {
-    // Positions
-    @Published var animalX: CGFloat = UIScreen.main.bounds.width * 0.65 // starts at right edge
-    @Published var animalY: CGFloat = -UIScreen.main.bounds.height * 0 // starts at middle
+    // Animal Data
+    @Published var animalName: String?
+    @Published var animalPositionX: CGFloat = 0
+    @Published var animalPositionY: CGFloat = 0
+    @Published var animalImage: UIImage = UIImage()
+    @Published var animationType: AnimationType = .horizontal
     
     // Animation Helpers
     @Published var rotationAngle: Double = 0
@@ -31,13 +36,20 @@ class ScenarioViewModel: ObservableObject {
     @Published var showDrawingCanvas = false
     @Published var isolatedImages: [UIImage] = []
     
+    func setAnimal(_ animal: Animal) {
+        animalPositionX = animal.positionX
+        animalPositionY = animal.positionY
+        animalImage = animal.image
+        animationType = animal.animationType
+    }
+
     func startHorizontalAnimation() {
         Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { timer in
             withAnimation(Animation.linear(duration: 3.0)) {
-                if self.animalX == Positions.rightEdge {
-                    self.animalX = Positions.leftEdge
+                if self.animalPositionX == Positions.rightEdge {
+                    self.animalPositionX = Positions.leftEdge
                 } else {
-                    self.animalX = Positions.rightEdge
+                    self.animalPositionX = Positions.rightEdge
                 }
             }
         }
@@ -46,10 +58,10 @@ class ScenarioViewModel: ObservableObject {
     func startWaveAnimation() {
         Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { timer in
             withAnimation(Animation.linear(duration: 3.0)) {
-                if self.animalX == Positions.rightEdge {
-                    self.animalX = Positions.leftEdge
+                if self.animalPositionX == Positions.rightEdge {
+                    self.animalPositionX = Positions.leftEdge
                 } else {
-                    self.animalX = Positions.rightEdge
+                    self.animalPositionX = Positions.rightEdge
                 }
             }
         }

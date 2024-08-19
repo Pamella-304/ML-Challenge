@@ -15,30 +15,36 @@ struct ScenarioView: View {
         ZStack {
             BackgroundView()
             
-            animatedAnimalView(initialX: viewModel.animalX,
-                               initialY: viewModel.animalY,
-                               animationType: .wave)
+            if viewModel.animalName != nil {
+                animatedAnimalView()
+            }
 
             DrawingButtonView()
+        }
+        .onAppear {
+            viewModel.animalName = "fish"
+            if let animalName = viewModel.animalName, let selectedAnimal = animals[animalName] {
+                viewModel.setAnimal(selectedAnimal)
+            }
         }
     }
     
     @ViewBuilder
-    private func animatedAnimalView(initialX: CGFloat, initialY: CGFloat, animationType: AnimationType) -> some View {
-        AnimalView()
-            .offset(x: viewModel.animalX, y: viewModel.animalY)
+    private func animatedAnimalView() -> some View {
+        AnimalView(animalImage: viewModel.animalImage)
+            .offset(x: viewModel.animalPositionX, y: viewModel.animalPositionY)
             .rotationEffect(.degrees({
-                switch animationType {
+                switch viewModel.animationType {
                 case .wave:
                     return viewModel.rotationAngle
                 case .shake:
-                    return viewModel.shake ? 4 : -4
+                    return viewModel.shake ? 1 : -1
                 default:
                     return 0
                 }
             }()))
             .onAppear {
-                switch animationType {
+                switch viewModel.animationType {
                 case .horizontal:
                     viewModel.startHorizontalAnimation()
                 case .wave:
@@ -48,14 +54,13 @@ struct ScenarioView: View {
                     viewModel.startShakeAnimation()
                 }
             }
-            .onChange(of: viewModel.animalX) {
-                if case .horizontal = animationType {
+            .onChange(of: viewModel.animalPositionX) {
+                if case .horizontal = viewModel.animationType {
                     viewModel.isFlipped.toggle()
-                } else if case .wave = animationType {
+                } else if case .wave = viewModel.animationType {
                     viewModel.isFlipped.toggle()
                 }
             }
-
     }
     
     private func BackgroundView() -> some View {
@@ -87,13 +92,13 @@ struct ScenarioView: View {
         .padding()
     }
     
-    private func AnimalView() -> some View {
+    private func AnimalView(animalImage: UIImage) -> some View {
         ForEach(viewModel.isolatedImages, id: \.self) { image in
-            Image(uiImage: image)
+            Image(uiImage: animalImage)
             //Image("tubarao") // used for tests
                 .resizable()
-                .frame(width: UIScreen.main.bounds.width * 0.3,
-                       height: UIScreen.main.bounds.height * 0.4)
+                .frame(width: UIScreen.main.bounds.width * 0.2,
+                       height: UIScreen.main.bounds.height * 0.3)
                 .scaleEffect(x: viewModel.isFlipped ? -1 : 1, y: 1)
         }
     }
