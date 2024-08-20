@@ -58,13 +58,6 @@ struct ScenarioView: View {
 
     }
     
-    private func BackgroundView() -> some View {
-        Image("aquario")
-            .resizable()
-            .scaledToFill()
-            .edgesIgnoringSafeArea(.all)
-    }
-    
     private func DrawingButtonView() -> some View {
         VStack {
             Button(action: {
