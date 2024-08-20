@@ -8,13 +8,19 @@
 import SwiftUI
 
 struct InitialMenuView: View {
+    @State private var isScenarioViewActive = false
+    
     var body: some View {
         ZStack {
             BackgroundView()
             colorOverlay()
             
-            VStack {
-                startButton()
+            if isScenarioViewActive {
+                ScenarioView()
+            } else {
+                VStack {
+                    startButton()
+                }
             }
         }
     }
@@ -26,14 +32,18 @@ struct InitialMenuView: View {
     }
     
     private func startButton() -> some View {
-        Text("Start")
-            .font(.system(size: 64, weight: .bold))
-            .foregroundColor(.white)
-            .padding(.horizontal, 50)
-            .padding(.vertical)
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(Color("buttonColor"))
-            )
+        Button(action: {
+            isScenarioViewActive = true
+        }) {
+            Text("Start")
+                .font(.system(size: 64, weight: .bold))
+                .foregroundColor(.white)
+                .padding(.horizontal, 50)
+                .padding(.vertical)
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(Color("buttonColor"))
+                )
+        }
     }
 }
