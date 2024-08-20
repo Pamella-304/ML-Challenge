@@ -19,6 +19,7 @@
 		61FCD8DE2C5A803300940C1C /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FCD8DD2C5A803200940C1C /* ImageProcessor.swift */; };
 		626051F02C74BD5D00C76849 /* InitialMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626051EF2C74BD5D00C76849 /* InitialMenuView.swift */; };
 		626051F22C74BE0A00C76849 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626051F12C74BE0A00C76849 /* BackgroundView.swift */; };
+		626051F42C74C5F300C76849 /* InitialMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626051F32C74C5F300C76849 /* InitialMenuViewModel.swift */; };
 		62FF70DE2C6F735D0092F484 /* AnimalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF70DD2C6F735D0092F484 /* AnimalData.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 		61FCD8DD2C5A803200940C1C /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
 		626051EF2C74BD5D00C76849 /* InitialMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialMenuView.swift; sourceTree = "<group>"; };
 		626051F12C74BE0A00C76849 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		626051F32C74C5F300C76849 /* InitialMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialMenuViewModel.swift; sourceTree = "<group>"; };
 		62FF70DD2C6F735D0092F484 /* AnimalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,6 +114,7 @@
 			children = (
 				61FCD8D82C5A703300940C1C /* DrawingCanvasViewModel.swift */,
 				61FCD8DA2C5A704A00940C1C /* ScenarioViewModel.swift */,
+				626051F32C74C5F300C76849 /* InitialMenuViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				626051F42C74C5F300C76849 /* InitialMenuViewModel.swift in Sources */,
 				610794152C6F796D00CD159B /* MyCanvas.swift in Sources */,
 				610794132C6F70A200CD159B /* AnimalClassifier.mlmodel in Sources */,
 				626051F22C74BE0A00C76849 /* BackgroundView.swift in Sources */,

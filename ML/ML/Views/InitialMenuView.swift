@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct InitialMenuView: View {
-    @State private var isScenarioViewActive = false
+    @StateObject private var viewModel = InitialMenuViewModel()
     
     var body: some View {
         ZStack {
             BackgroundView()
             colorOverlay()
             
-            if isScenarioViewActive {
+            if viewModel.isScenarioViewActive {
                 ScenarioView()
             } else {
                 VStack {
@@ -33,7 +33,7 @@ struct InitialMenuView: View {
     
     private func startButton() -> some View {
         Button(action: {
-            isScenarioViewActive = true
+            viewModel.isScenarioViewActive = true
         }) {
             Text("Start")
                 .font(.system(size: 64, weight: .bold))
