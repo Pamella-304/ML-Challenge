@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		610794132C6F70A200CD159B /* AnimalClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 610794122C6F70A200CD159B /* AnimalClassifier.mlmodel */; };
+		610794152C6F796D00CD159B /* MyCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610794142C6F796D00CD159B /* MyCanvas.swift */; };
 		61DBC2352C5986CA0007F69D /* MLApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DBC2342C5986CA0007F69D /* MLApp.swift */; };
 		61DBC2372C5986CA0007F69D /* ScenarioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DBC2362C5986CA0007F69D /* ScenarioView.swift */; };
 		61DBC2392C5986CB0007F69D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61DBC2382C5986CB0007F69D /* Assets.xcassets */; };
@@ -16,11 +17,15 @@
 		61FCD8D92C5A703300940C1C /* DrawingCanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FCD8D82C5A703300940C1C /* DrawingCanvasViewModel.swift */; };
 		61FCD8DB2C5A704A00940C1C /* ScenarioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FCD8DA2C5A704A00940C1C /* ScenarioViewModel.swift */; };
 		61FCD8DE2C5A803300940C1C /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FCD8DD2C5A803200940C1C /* ImageProcessor.swift */; };
+		626051F02C74BD5D00C76849 /* InitialMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626051EF2C74BD5D00C76849 /* InitialMenuView.swift */; };
+		626051F22C74BE0A00C76849 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626051F12C74BE0A00C76849 /* BackgroundView.swift */; };
+		626051F42C74C5F300C76849 /* InitialMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626051F32C74C5F300C76849 /* InitialMenuViewModel.swift */; };
 		62FF70DE2C6F735D0092F484 /* AnimalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF70DD2C6F735D0092F484 /* AnimalData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		610794122C6F70A200CD159B /* AnimalClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = AnimalClassifier.mlmodel; sourceTree = "<group>"; };
+		610794142C6F796D00CD159B /* MyCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCanvas.swift; sourceTree = "<group>"; };
 		61DBC2312C5986CA0007F69D /* ML.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ML.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61DBC2342C5986CA0007F69D /* MLApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLApp.swift; sourceTree = "<group>"; };
 		61DBC2362C5986CA0007F69D /* ScenarioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioView.swift; sourceTree = "<group>"; };
@@ -30,6 +35,9 @@
 		61FCD8D82C5A703300940C1C /* DrawingCanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCanvasViewModel.swift; sourceTree = "<group>"; };
 		61FCD8DA2C5A704A00940C1C /* ScenarioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenarioViewModel.swift; sourceTree = "<group>"; };
 		61FCD8DD2C5A803200940C1C /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
+		626051EF2C74BD5D00C76849 /* InitialMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialMenuView.swift; sourceTree = "<group>"; };
+		626051F12C74BE0A00C76849 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		626051F32C74C5F300C76849 /* InitialMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialMenuViewModel.swift; sourceTree = "<group>"; };
 		62FF70DD2C6F735D0092F484 /* AnimalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,6 +102,9 @@
 			children = (
 				61DBC2362C5986CA0007F69D /* ScenarioView.swift */,
 				61DBC2422C5989D20007F69D /* DrawingCanvasView.swift */,
+				610794142C6F796D00CD159B /* MyCanvas.swift */,
+				626051EF2C74BD5D00C76849 /* InitialMenuView.swift */,
+				626051F12C74BE0A00C76849 /* BackgroundView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -103,6 +114,7 @@
 			children = (
 				61FCD8D82C5A703300940C1C /* DrawingCanvasViewModel.swift */,
 				61FCD8DA2C5A704A00940C1C /* ScenarioViewModel.swift */,
+				626051F32C74C5F300C76849 /* InitialMenuViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -187,13 +199,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				626051F42C74C5F300C76849 /* InitialMenuViewModel.swift in Sources */,
+				610794152C6F796D00CD159B /* MyCanvas.swift in Sources */,
 				610794132C6F70A200CD159B /* AnimalClassifier.mlmodel in Sources */,
+				626051F22C74BE0A00C76849 /* BackgroundView.swift in Sources */,
 				61DBC2372C5986CA0007F69D /* ScenarioView.swift in Sources */,
 				61DBC2352C5986CA0007F69D /* MLApp.swift in Sources */,
 				61FCD8DB2C5A704A00940C1C /* ScenarioViewModel.swift in Sources */,
 				62FF70DE2C6F735D0092F484 /* AnimalData.swift in Sources */,
 				61DBC2432C5989D20007F69D /* DrawingCanvasView.swift in Sources */,
 				61FCD8DE2C5A803300940C1C /* ImageProcessor.swift in Sources */,
+				626051F02C74BD5D00C76849 /* InitialMenuView.swift in Sources */,
 				61FCD8D92C5A703300940C1C /* DrawingCanvasViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

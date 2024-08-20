@@ -15,12 +15,21 @@ class DrawingCanvasViewModel: ObservableObject {
     @Published var resultCategory: String?
     @Published var currentDrawing: UIImage?
     @Published var canvasView: PKCanvasView
+    var toolPicker: PKToolPicker
     
     private var imageProcessor: ImageProcessor
     
     init() {
         self.canvasView = PKCanvasView()
         self.imageProcessor = ImageProcessor()
+        self.toolPicker = PKToolPicker()
+
+    }
+    
+    func setupToolPicker() {
+        toolPicker.setVisible(true, forFirstResponder: canvasView)
+        toolPicker.addObserver(canvasView)
+        canvasView.becomeFirstResponder()
         
     }
     
@@ -28,9 +37,6 @@ class DrawingCanvasViewModel: ObservableObject {
     func processDrawing(completion: @escaping (UIImage?) -> Void) {
                 
             self.canvasView.layoutIfNeeded()
-            
-            print("dimensoes do canvas")
-            print(self.canvasView.bounds)
             
             guard !self.canvasView.bounds.isEmpty else {
                 print("Canvas bounds are empty")
@@ -40,9 +46,6 @@ class DrawingCanvasViewModel: ObservableObject {
             }
             let drawingImage = self.canvasView.drawing.image(from: self.canvasView.bounds, scale: UIScreen.main.scale)
             self.currentDrawing = drawingImage
-            
-            print("currentDrawing")
-            print(self.currentDrawing!)
             
             if let currentDrawing = self.currentDrawing {
                 
@@ -66,6 +69,61 @@ class DrawingCanvasViewModel: ObservableObject {
         self.canvasView.drawing = PKDrawing()
         self.currentDrawing = nil
         self.isolatedImage = nil
+    }
+    
+    func cropToContent(_ image: UIImage) -> UIImage? {
+        guard let cgImage = image.cgImage else { return nil }
+        
+        let width = cgImage.width
+        let height = cgImage.height
+        let bytesPerPixel = 4
+        let bytesPerRow = bytesPerPixel * width
+        let bitsPerComponent = 8
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGImageAlphaInfo.premultipliedLast.rawValue
+        
+        guard let context = CGContext(data: nil,
+                                      width: cgImage.width,
+                                      height: cgImage.height,
+                                      bitsPerComponent: cgImage.bitsPerComponent,
+                                      bytesPerRow: cgImage.bytesPerRow,
+                                      space: cgImage.colorSpace!,
+                                      bitmapInfo: bitmapInfo)
+        else { return nil }
+        
+        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: cgImage.width, height: cgImage.height))
+        
+        guard let pixelBuffer = context.data else { return nil }
+        
+        let data = pixelBuffer.bindMemory(to: UInt8.self, capacity: width * height * bytesPerPixel)
+        
+        var minY = cgImage.height
+        var maxY: Int = 0
+        var minX = cgImage.width
+        var maxX: Int = 0
+        
+        for y in 0..<cgImage.height {
+            for x in 0..<cgImage.width {
+                let pixelIndex = (y * bytesPerRow) + (x * bytesPerPixel)
+                let alpha = data[pixelIndex + 3] // Índice do canal alfa
+                if alpha != 0 {
+                    if y < minY { minY = y }
+                    if y > maxY { maxY = y }
+                    if x < minX { minX = x }
+                    if x > maxX { maxX = x }
+                }
+            }
+        }
+        
+        if minX > maxX || minY > maxY {
+            return nil
+        }
+        
+        let cropRect = CGRect(x: minX, y: minY, width: maxX - minX + 1, height: maxY - minY + 1)
+        guard let croppedCgImage = cgImage.cropping(to: cropRect) else { return nil }
+        
+        return UIImage(cgImage: croppedCgImage)
+        
     }
 }
 

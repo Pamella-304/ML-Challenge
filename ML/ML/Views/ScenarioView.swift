@@ -68,13 +68,6 @@ struct ScenarioView: View {
         }
     }
     
-    private func BackgroundView() -> some View {
-        Image("aquario")
-            .resizable()
-            .scaledToFill()
-            .edgesIgnoringSafeArea(.all)
-    }
-    
     private func DrawingButtonView() -> some View {
         VStack {
             Button(action: {
@@ -86,7 +79,7 @@ struct ScenarioView: View {
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                 
-            }.sheet(isPresented: $viewModel.showDrawingCanvas) {
+            }.fullScreenCover(isPresented: $viewModel.showDrawingCanvas) {
                 DrawingCanvasView(viewModel: canvasVM) { image in
                     viewModel.addImage(image)
                     
@@ -94,12 +87,9 @@ struct ScenarioView: View {
                        let animal = animals[category] {
                         viewModel.addAnimal(animal)
                     }
-                    print("\(viewModel.animals)")
                 }
             }
-            .padding()
             Spacer()
         }
-        .padding()
     }
 }
