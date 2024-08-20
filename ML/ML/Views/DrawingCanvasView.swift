@@ -5,11 +5,15 @@
 //  Created by Pamella Alvarenga on 30/07/24.
 //
 
+//
+//  DrawingCanvasView.swift
+//  ML
+//
+//  Created by Pamella Alvarenga on 30/07/24.
+//
+
 import SwiftUI
 import PencilKit
-
-
-
 
 struct DrawingCanvasView: View {
     
@@ -61,11 +65,9 @@ struct DrawingCanvasView: View {
                 }
                 
                 Button(action: {
-                    
-                    
-                    viewModel.processDrawing { croppedImage in
-                        if let croppedImage = croppedImage {
-                            onAdd(croppedImage)
+                    viewModel.processDrawing { isolatedImage in
+                        if let isolatedImage = isolatedImage {
+                            onAdd(isolatedImage)
                         } else {
                             print("failed to process image")
                         }
@@ -81,11 +83,11 @@ struct DrawingCanvasView: View {
                 
             }
         }.onAppear{
+            //viewModel.resetCanvas()
         }
     }
     
 }
-
 
 struct MyCanvas: UIViewRepresentable {
     @Binding var canvasView: PKCanvasView
@@ -97,11 +99,7 @@ struct MyCanvas: UIViewRepresentable {
         return canvasView
     }
     
-    func updateUIView(_ canvasView: PKCanvasView, context: Context) { 
+    func updateUIView(_ canvasView: PKCanvasView, context: Context) {
+        //
     }
-}
-
-
-#Preview {
-    DrawingCanvasView(viewModel: DrawingCanvasViewModel(), onAdd:  { _ in })
 }
