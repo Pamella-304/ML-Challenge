@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "tubarao.png",
+      "filename" : "animArt.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "animArt@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "animArt@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

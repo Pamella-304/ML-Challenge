@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BackgroundView: View {
     var body: some View {
-        Image("aquario")
+        Image("scenario")
             .resizable()
             .scaledToFill()
             .edgesIgnoringSafeArea(.all)
