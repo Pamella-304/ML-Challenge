@@ -18,8 +18,23 @@ struct InitialMenuView: View {
             if viewModel.isScenarioViewActive {
                 ScenarioView()
             } else {
-                VStack {
-                    startButton()
+                VStack(alignment: .center) {
+                    Image("animArt")
+                        .resizable()
+                        .frame(width: UIScreen.main.bounds.width * 0.6,
+                               height: UIScreen.main.bounds.height * 0.8)
+                        .padding(.top, -80)
+
+                        startButton()
+                            .background(
+                                Image("crab")
+                                    .resizable()
+                                    .frame(width: UIScreen.main.bounds.width * 0.2,
+                                           height: UIScreen.main.bounds.height * 0.3)
+                                    .padding(.bottom, 300)
+                            )
+                    
+                    Spacer()
                 }
             }
         }
@@ -36,9 +51,9 @@ struct InitialMenuView: View {
             viewModel.isScenarioViewActive = true
         }) {
             Text("Start")
-                .font(.system(size: 64, weight: .bold))
+                .font(.system(size: 48, weight: .bold))
                 .foregroundColor(.white)
-                .padding(.horizontal, 50)
+                .padding(.horizontal, 40)
                 .padding(.vertical)
                 .background(
                     RoundedRectangle(cornerRadius: 16)
