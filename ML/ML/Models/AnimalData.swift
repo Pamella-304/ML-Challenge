@@ -16,7 +16,6 @@ enum AnimationType {
 
 struct Animal {
     let name: String
-    let image: UIImage
     var positionX: CGFloat
     var positionY: CGFloat
     let animationType: AnimationType
@@ -28,35 +27,35 @@ struct Animal {
 }
 
 let animals: [String: Animal] = [
-    "Crustaceans": Animal(name: "Crustaceans", image: UIImage(imageLiteralResourceName: "starfish"),
+    "Crustaceans": Animal(name: "Crustaceans",
                           positionX: CGFloat.random(in: Positions.littleLeftEdge...Positions.littleRightEdge),
                           positionY: Positions.bottomEdge,
                           animationType: .horizontal),
-    "DolphinFish": Animal(name: "DolphinFish", image: UIImage(imageLiteralResourceName: "fish"),
+    "DolphinFish": Animal(name: "DolphinFish",
                           positionX: [Positions.leftEdge, Positions.rightEdge].randomElement() ?? 0,
                           positionY: Positions.verticalMiddle,
                           animationType: .wave),
-    "Oyster": Animal(name: "Oyster", image: UIImage(imageLiteralResourceName: "star"),
+    "Oyster": Animal(name: "Oyster",
                      positionX: CGFloat.random(in: Positions.littleLeftEdge...Positions.littleRightEdge),
                      positionY: Positions.bottomEdge,
                      animationType: .shake),
-    "SeaHorse": Animal(name: "SeaHorse", image: UIImage(imageLiteralResourceName: "star"),
+    "SeaHorse": Animal(name: "SeaHorse",
                        positionX: [Positions.leftEdge, Positions.rightEdge].randomElement() ?? 0,
                        positionY: [Positions.bottomEdge, Positions.topEdge, Positions.verticalMiddle].randomElement() ?? 0,
                        animationType: .horizontal),
-    "Snail": Animal(name: "Snail", image: UIImage(imageLiteralResourceName: "star"),
+    "Snail": Animal(name: "Snail",
                     positionX: [Positions.leftEdge, Positions.rightEdge].randomElement() ?? 0,
                     positionY: Positions.bottomEdge,
                     animationType: .horizontal),
-    "Star": Animal(name: "Star", image: UIImage(imageLiteralResourceName: "starfish"),
+    "Star": Animal(name: "Star",
                    positionX: CGFloat.random(in: Positions.littleLeftEdge...Positions.littleRightEdge),
                    positionY: Positions.bottomEdge,
                    animationType: .shake),
-    "Tentacles": Animal(name: "Tentacles", image: UIImage(imageLiteralResourceName: "fish"),
+    "Tentacles": Animal(name: "Tentacles",
                         positionX: [Positions.leftEdge, Positions.rightEdge].randomElement() ?? 0,
                         positionY: Positions.verticalMiddle,
                         animationType: .wave),
-    "Urchin": Animal(name: "Urchin", image: UIImage(imageLiteralResourceName: "starfish"),
+    "Urchin": Animal(name: "Urchin",
                      positionX: CGFloat.random(in: Positions.littleLeftEdge...Positions.littleRightEdge),
                      positionY: Positions.bottomEdge,
                      animationType: .shake)

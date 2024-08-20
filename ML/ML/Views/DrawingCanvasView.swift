@@ -16,8 +16,8 @@ import SwiftUI
 import PencilKit
 
 struct DrawingCanvasView: View {
-    
     @ObservedObject var viewModel: DrawingCanvasViewModel
+    @StateObject private var scenarioVM = ScenarioViewModel()
     @Environment(\.undoManager) private var undoManager
     var onAdd: (UIImage) -> Void
     

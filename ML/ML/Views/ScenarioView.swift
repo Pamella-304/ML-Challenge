@@ -21,21 +21,14 @@ struct ScenarioView: View {
 
             DrawingButtonView()
         }
-        .onAppear {
-            viewModel.addAnimal(animals["fish"]!)
-            viewModel.addAnimal(animals["fish"]!)
-            viewModel.addAnimal(animals["fish"]!)
-            viewModel.addAnimal(animals["fish"]!)
-            viewModel.addAnimal(animals["shark"]!)
-            viewModel.addAnimal(animals["starfish"]!)
-        }
     }
     
     @ViewBuilder
     private func animatedAnimalView(for index: Int) -> some View {
         let animal = viewModel.animals[index]
         
-        animalImage(for: animal)
+        Image(uiImage: viewModel.isolatedImages[index])
+            .resizable()
             .frame(width: UIScreen.main.bounds.width * 0.2,
                    height: UIScreen.main.bounds.height * 0.3)
             .scaleEffect(x: scaleEffectX(for: animal), y: 1)
@@ -44,11 +37,6 @@ struct ScenarioView: View {
             .onAppear {
                 handleAnimation(for: index)
             }
-    }
-
-    private func animalImage(for animal: Animal) -> some View {
-        Image(uiImage: animal.image)
-            .resizable()
     }
 
     private func scaleEffectX(for animal: Animal) -> CGFloat {
@@ -101,6 +89,12 @@ struct ScenarioView: View {
             }.sheet(isPresented: $viewModel.showDrawingCanvas) {
                 DrawingCanvasView(viewModel: canvasVM) { image in
                     viewModel.addImage(image)
+                    
+                    if let category = canvasVM.resultCategory,
+                       let animal = animals[category] {
+                        viewModel.addAnimal(animal)
+                    }
+                    print("\(viewModel.animals)")
                 }
             }
             .padding()

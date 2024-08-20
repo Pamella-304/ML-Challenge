@@ -12,10 +12,11 @@ import Vision
 
 class DrawingCanvasViewModel: ObservableObject {
     @Published var isolatedImage: UIImage?
+    @Published var resultCategory: String?
     @Published var currentDrawing: UIImage?
     @Published var canvasView: PKCanvasView
     
-    private var imageProcessor: ImageProcessor // instanciando a classe que trata da conversao necessaria para transformar o conteudo desenhado no canvas em um objeto animável e apresentável em outra view
+    private var imageProcessor: ImageProcessor
     
     init() {
         self.canvasView = PKCanvasView()
@@ -51,7 +52,8 @@ class DrawingCanvasViewModel: ObservableObject {
                         self?.isolatedImage = isolatedImage
                         completion(isolatedImage)
                     }
-                        
+                    
+                    self?.resultCategory = self?.imageProcessor.resultCategory
                 }
                 
             } else {
