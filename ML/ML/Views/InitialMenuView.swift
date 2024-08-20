@@ -12,6 +12,10 @@ struct InitialMenuView: View {
         ZStack {
             BackgroundView()
             colorOverlay()
+            
+            VStack {
+                startButton()
+            }
         }
     }
     
@@ -19,5 +23,17 @@ struct InitialMenuView: View {
         Rectangle()
             .edgesIgnoringSafeArea(.all)
             .foregroundStyle(Color("initialMenuColor").opacity(0.4))
+    }
+    
+    private func startButton() -> some View {
+        Text("Start")
+            .font(.system(size: 64, weight: .bold))
+            .foregroundColor(.white)
+            .padding(.horizontal, 50)
+            .padding(.vertical)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color("buttonColor"))
+            )
     }
 }
