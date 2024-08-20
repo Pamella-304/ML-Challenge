@@ -10,19 +10,38 @@ import SwiftUI
 struct ScenarioView: View {
     @StateObject private var viewModel = ScenarioViewModel()
     @StateObject var canvasVM = DrawingCanvasViewModel()
+    @State private var navigationLinkIsActive: Bool = false
+
     
     var body: some View {
-        ZStack {
-            BackgroundView()
+        
+        NavigationStack{
+            ZStack {
+                BackgroundView()
+                
+                animatedAnimalView(initialX: viewModel.animalX,
+                                   initialY: viewModel.animalY,
+                                   animationType: .wave)
+            }
+            .navigationBarTitle("My Sea World", displayMode: .inline)
+            .navigationBarItems(
+                trailing: Button(action: {
+                    navigationLinkIsActive = true
+                    NavigationLink("",destination: DrawingCanvasView(viewModel: DrawingCanvasViewModel(), onAdd: { _ in }),isActive: $navigationLinkIsActive)
+                    
+                }) {
+                    Text("New Drawing")
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 32)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+            )
             
-            animatedAnimalView(initialX: viewModel.animalX,
-                               initialY: viewModel.animalY,
-                               animationType: .wave)
-
-            DrawingButtonView()
         }
+        
     }
-    
     @ViewBuilder
     private func animatedAnimalView(initialX: CGFloat, initialY: CGFloat, animationType: AnimationType) -> some View {
         AnimalView()
@@ -55,7 +74,7 @@ struct ScenarioView: View {
                     viewModel.isFlipped.toggle()
                 }
             }
-
+        
     }
     
     private func BackgroundView() -> some View {
@@ -63,27 +82,6 @@ struct ScenarioView: View {
             .resizable()
             .scaledToFill()
             .edgesIgnoringSafeArea(.all)
-    }
-    
-    private func DrawingButtonView() -> some View {
-        VStack {
-            Button(action: {
-                viewModel.toggleDrawingCanvas()
-            }) {
-                Image(systemName: "pencil")
-                    .imageScale(.large)
-                    .padding()
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                
-            }.fullScreenCover(isPresented: $viewModel.showDrawingCanvas) {
-                DrawingCanvasView(viewModel: canvasVM) { image in
-                    viewModel.addImage(image)
-                }
-            }
-           // Ajuste as dimensões internas
-            Spacer()
-        }
     }
     
     private func AnimalView() -> some View {

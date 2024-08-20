@@ -78,6 +78,8 @@ class DrawingCanvasViewModel: ObservableObject {
     }
     
     
+  
+    
     func cropToContent(_ image: UIImage) -> UIImage? {
         guard let cgImage = image.cgImage else { return nil }
         

@@ -16,49 +16,56 @@ struct DrawingCanvasView: View {
     @ObservedObject var viewModel: DrawingCanvasViewModel
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.undoManager) private var undoManager
-    var onAdd: (UIImage) -> Void
+    var onAdd: (UIImage?) -> Void
     
+    init(viewModel: DrawingCanvasViewModel, onAdd: @escaping (UIImage?) -> Void) {
+        self.viewModel = viewModel
+        self.onAdd = onAdd
+        setupToolPicker()
+    }
     
     var body: some View {
-        ZStack{
-            MyCanvas(canvasView: $viewModel.canvasView)
-                .edgesIgnoringSafeArea(.all)
-            VStack{
-                Spacer()
-                Button(action: {
-                    
-                    viewModel.processDrawing { croppedImage in
-                        if let croppedImage = croppedImage {
-                            onAdd(croppedImage)
-                        } else {
-                            print("failed to process image")
-                            
+        NavigationView{
+            ZStack{
+                MyCanvas(canvasView: $viewModel.canvasView)
+                    .edgesIgnoringSafeArea(.all)
+                
+            }.navigationBarTitle("Draw your sea animal", displayMode: .inline)
+                .navigationBarItems(
+                    leading: Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        HStack {
+                            Image(systemName: "chevron.left")
+                                .imageScale(.large)
+                            Text("Back")
                         }
-                        presentationMode.wrappedValue.dismiss() // Fecha a tela modal
-
+                    },
+                    trailing: Button(action: {
+                        viewModel.processDrawing { image in
+                            if let image = image {
+                                onAdd(image)
+                                presentationMode.wrappedValue.dismiss()
+                            }
+                        }
+                    }) {
+                        Text("Add Drawing")
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 32)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
                     }
-                    
-
-                    
-                }) {
-                    Text("Add")
-                        .font(.title)
-                        .padding()
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-            }
-
-        }.onAppear{
-            viewModel.setupToolPicker()
+                )
+            
         }
     }
     
+    private func setupToolPicker() {
+           viewModel.setupToolPicker()
+       }
+    
 }
-
-
-
 
 
 #Preview {
