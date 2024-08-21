@@ -33,8 +33,7 @@ class DrawingCanvasViewModel: ObservableObject {
         
     }
     
-    @MainActor
-    func processDrawing(completion: @escaping (UIImage?) -> Void) {
+    @MainActor func processDrawing(completion: @escaping (UIImage?) -> Void) {
             self.canvasView.layoutIfNeeded()
             
             guard !self.canvasView.bounds.isEmpty else {
@@ -51,10 +50,9 @@ class DrawingCanvasViewModel: ObservableObject {
                 self.imageProcessor.isolateDrawing(from: currentDrawing) { [weak self] isolatedImage in
                     DispatchQueue.main.async {
                         self?.isolatedImage = isolatedImage
+                        self?.resultCategory = self?.imageProcessor.resultCategory
                         completion(isolatedImage)
                     }
-                    
-                    self?.resultCategory = self?.imageProcessor.resultCategory
                 }
                 
             } else {
@@ -63,7 +61,7 @@ class DrawingCanvasViewModel: ObservableObject {
                 }
         }
         
-    func resetCanvas() {
+    @MainActor func resetCanvas() {
         self.canvasView.drawing = PKDrawing()
         self.currentDrawing = nil
         self.isolatedImage = nil
