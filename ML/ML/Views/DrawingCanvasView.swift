@@ -13,7 +13,7 @@ struct DrawingCanvasView: View {
     @StateObject private var scenarioVM = ScenarioViewModel()
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.undoManager) private var undoManager
-    var onAdd: (UIImage) -> Void
+    var onAdd: (UIImage?) -> Void
     
     var body: some View {
         ZStack{
@@ -45,4 +45,7 @@ struct DrawingCanvasView: View {
             viewModel.setupToolPicker()
         }
     }
+
+#Preview {
+    DrawingCanvasView(viewModel: DrawingCanvasViewModel(), onAdd:  { _ in })
 }
