@@ -1,3 +1,9 @@
+//
+//  ImageProcessor.swift
+//  ML
+//
+//  Created by Pamella Alvarenga on 31/07/24.
+
 import UIKit
 import Vision
 import CoreML
@@ -6,6 +12,7 @@ class ImageProcessor {
     typealias ImageHandler = ((UIImage?) -> (Void))
     var context: CGContext?
     var resultImage: UIImage?
+    var resultCategory: String?
 
     func isolateDrawing(from image: UIImage, completion: @escaping (UIImage?) -> Void) {
         do {
@@ -179,6 +186,7 @@ class ImageProcessor {
                 }
                 
                 print("Detected category: \(firstResult.identifier)")
+                self.resultCategory = firstResult.identifier
                 handler(image)
             }
             

@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "aquario.jpeg",
+      "filename" : "crab.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "crab@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "crab@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

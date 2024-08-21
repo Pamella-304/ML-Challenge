@@ -14,33 +14,56 @@ struct ScenarioView: View {
     var body: some View {
         ZStack {
             BackgroundView()
-            AnimalView()
-                .offset(x: viewModel.animalPosition)
-                .onAppear {
-                    viewModel.startHorizontalAnimation(duration: 3)
-                }
-                .onChange(of: viewModel.animalPosition) {
-                    viewModel.isFlipped.toggle()
-                    
-                    GeometryReader {geometry in
-                        ForEach(viewModel.isolatedImages, id: \.self) { image in
-                            Image(uiImage: image)
-                                .resizable()
-                                .frame(width: 500, height: 500)
-                                .position(x: geometry.size.width/2 - 50, y: geometry.size.height/2 - 50)
-                            
-                        }
-                    }
-                }
+            ForEach(viewModel.animals.indices, id: \.self) { index in
+                animatedAnimalView(for: index)
+            }
             DrawingButtonView()
         }
     }
     
-    private func BackgroundView() -> some View {
-        Image("aquario")
+    @ViewBuilder
+    private func animatedAnimalView(for index: Int) -> some View {
+        let animal = viewModel.animals[index]
+        
+        Image(uiImage: viewModel.isolatedImages[index])
             .resizable()
-            .scaledToFill()
-            .edgesIgnoringSafeArea(.all)
+            .frame(width: UIScreen.main.bounds.width * 0.2,
+                   height: UIScreen.main.bounds.height * 0.3)
+            .scaleEffect(x: scaleEffectX(for: animal), y: 1)
+            .offset(x: animal.positionX, y: animal.positionY)
+            .rotationEffect(rotationAngle(for: animal))
+            .onAppear {
+                handleAnimation(for: index)
+            }
+    }
+
+    private func scaleEffectX(for animal: Animal) -> CGFloat {
+        animal.isFlipped ? -1 : 1
+    }
+
+    private func rotationAngle(for animal: Animal) -> Angle {
+        switch animal.animationType {
+        case .wave:
+            return .degrees(animal.rotationAngle)
+        case .shake:
+            return .degrees(animal.shake ? 1 : -1)
+        default:
+            return .degrees(0)
+        }
+    }
+
+    private func handleAnimation(for index: Int) {
+        let animal = viewModel.animals[index]
+        
+        switch animal.animationType {
+        case .horizontal:
+            viewModel.startHorizontalAnimation(for: index)
+        case .wave:
+            viewModel.startRotationAnimation(for: index)
+            viewModel.startWaveAnimation(for: index)
+        case .shake:
+            viewModel.startShakeAnimation(for: index)
+        }
     }
     
     private func DrawingButtonView() -> some View {
@@ -54,24 +77,17 @@ struct ScenarioView: View {
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                 
-            }.sheet(isPresented: $viewModel.showDrawingCanvas) {
+            }.fullScreenCover(isPresented: $viewModel.showDrawingCanvas) {
                 DrawingCanvasView(viewModel: canvasVM) { image in
                     viewModel.addImage(image)
+                    
+                    if let category = canvasVM.resultCategory,
+                       let animal = animals[category] {
+                        viewModel.addAnimal(animal)
+                    }
                 }
             }
-            .padding()
             Spacer()
-        }
-        .padding()
-    }
-    
-    private func AnimalView() -> some View {
-        ForEach(viewModel.isolatedImages, id: \.self) { image in
-            Image(uiImage: image)
-                .resizable()
-                .frame(width: UIScreen.main.bounds.width * 0.3,
-                       height: UIScreen.main.bounds.height * 0.4)
-                .scaleEffect(x: viewModel.isFlipped ? -1 : 1, y: 1)
         }
     }
 }
