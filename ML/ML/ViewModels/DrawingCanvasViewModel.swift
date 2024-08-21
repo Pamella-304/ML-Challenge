@@ -35,7 +35,6 @@ class DrawingCanvasViewModel: ObservableObject {
     
     @MainActor
     func processDrawing(completion: @escaping (UIImage?) -> Void) {
-                
             self.canvasView.layoutIfNeeded()
             
             guard !self.canvasView.bounds.isEmpty else {
@@ -50,7 +49,6 @@ class DrawingCanvasViewModel: ObservableObject {
             if let currentDrawing = self.currentDrawing {
                 
                 self.imageProcessor.isolateDrawing(from: currentDrawing) { [weak self] isolatedImage in
-                    
                     DispatchQueue.main.async {
                         self?.isolatedImage = isolatedImage
                         completion(isolatedImage)

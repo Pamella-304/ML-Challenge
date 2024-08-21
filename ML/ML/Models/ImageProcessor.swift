@@ -22,8 +22,8 @@ class ImageProcessor {
             }
 
             let normalizedImage = resizeImage(imageWithBackground, targetSize: CGSize(width: 224, height: 224))
-            
-            guard let classificationRequest = createClassificationRequest(image: normalizedImage, handler: { response in
+
+            guard let classificationRequest = createClassificationRequest(image: image, handler: { response in
                 completion(response)
             }) else { return }
 
@@ -46,8 +46,6 @@ class ImageProcessor {
                     guard let contoursObservation = try self.performContourRequest(image: image, contour: contourRequest, handler: handler, completion: {
                         response in completion(response)
                     }) else { return }
-
-                    UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
 
                     self.getPath(contoursObservation: contoursObservation, size: size)
 
@@ -132,6 +130,7 @@ class ImageProcessor {
     }
 
     private func createContext(size: CGSize, handler: @escaping ImageHandler) {
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         guard let context = UIGraphicsGetCurrentContext() else {
             DispatchQueue.main.async {
                 handler(nil)
