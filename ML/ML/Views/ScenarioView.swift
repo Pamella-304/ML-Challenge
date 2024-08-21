@@ -10,17 +10,43 @@ import SwiftUI
 struct ScenarioView: View {
     @StateObject private var viewModel = ScenarioViewModel()
     @StateObject var canvasVM = DrawingCanvasViewModel()
+    @State private var navigationLinkIsActive: Bool = false
+
     
     var body: some View {
-        ZStack {
-            BackgroundView()
+        
+        NavigationStack{
+            ZStack {
+                BackgroundView()
+                
+                animatedAnimalView(initialX: viewModel.animalX,
+                                   initialY: viewModel.animalY,
+                                   animationType: .wave)
+            }
+            .navigationBarTitle("My Sea World", displayMode: .inline)
+            .navigationBarItems(
+                trailing: Button(action: {
+                    navigationLinkIsActive = true
+                    NavigationLink("",destination: DrawingCanvasView(viewModel: DrawingCanvasViewModel(), onAdd: { _ in }),isActive: $navigationLinkIsActive)
+                    
+                }) {
+                    Text("New Drawing")
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 32)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+            )
+            
             ForEach(viewModel.animals.indices, id: \.self) { index in
                 animatedAnimalView(for: index)
             }
             DrawingButtonView()
+
         }
+        
     }
-    
     @ViewBuilder
     private func animatedAnimalView(for index: Int) -> some View {
         let animal = viewModel.animals[index]
@@ -39,6 +65,7 @@ struct ScenarioView: View {
 
     private func scaleEffectX(for animal: Animal) -> CGFloat {
         animal.isFlipped ? -1 : 1
+
     }
 
     private func rotationAngle(for animal: Animal) -> Angle {
@@ -88,6 +115,14 @@ struct ScenarioView: View {
                 }
             }
             Spacer()
+
+    private func AnimalView() -> some View {
+        ForEach(viewModel.isolatedImages, id: \.self) { image in
+            Image(uiImage: image)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: UIScreen.main.bounds.width * 0.3)
+                .scaleEffect(x: viewModel.isFlipped ? -1 : 1, y: 1)
         }
     }
 }
