@@ -11,6 +11,7 @@ import CoreML
 import Vision
 
 class DrawingCanvasViewModel: ObservableObject {
+    @Published var showAlert = false
     @Published var isolatedImage: UIImage?
     @Published var resultCategory: String?
     @Published var currentDrawing: UIImage?

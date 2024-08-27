@@ -81,7 +81,7 @@ struct ScenarioView: View {
                 DrawingCanvasView(viewModel: canvasVM) { image in
                     if let category = canvasVM.resultCategory {
                         if category == "None" {
-                            print("The model couldn't identify the drawing.")
+                            canvasVM.showAlert = true
                             return
                         }
 
@@ -90,6 +90,7 @@ struct ScenarioView: View {
                         if let animal = animals[category] {
                             viewModel.addAnimal(animal)
                         }
+
                     }
                 }
             }

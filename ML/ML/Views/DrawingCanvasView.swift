@@ -25,10 +25,12 @@ struct DrawingCanvasView: View {
                     viewModel.processDrawing { isolatedImage in
                         if let isolatedImage = isolatedImage {
                             onAdd(isolatedImage)
+                            if !viewModel.showAlert {
+                                presentationMode.wrappedValue.dismiss()
+                            }
                         } else {
                             print("failed to process image")
                         }
-                        presentationMode.wrappedValue.dismiss() // Fecha a tela modal
                     }
                 }) {
                     Text("Add")
@@ -43,6 +45,11 @@ struct DrawingCanvasView: View {
 
         }.onAppear{
             viewModel.setupToolPicker()
+        }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(title: Text("Unrecognized Drawing"),
+                  message: Text("Your drawing is creative, but we couldn't understand it. Try adding more details or redoing it."),
+                  dismissButton: .default(Text("OK")))
         }
     }
 }
