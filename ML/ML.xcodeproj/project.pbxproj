@@ -21,6 +21,7 @@
 		626051F22C74BE0A00C76849 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626051F12C74BE0A00C76849 /* BackgroundView.swift */; };
 		626051F42C74C5F300C76849 /* InitialMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626051F32C74C5F300C76849 /* InitialMenuViewModel.swift */; };
 		62FF70DE2C6F735D0092F484 /* AnimalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF70DD2C6F735D0092F484 /* AnimalData.swift */; };
+		A7A179D52C7E025100726F57 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = A7A179D42C7E025100726F57 /* Shaders.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		626051F12C74BE0A00C76849 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		626051F32C74C5F300C76849 /* InitialMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialMenuViewModel.swift; sourceTree = "<group>"; };
 		62FF70DD2C6F735D0092F484 /* AnimalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalData.swift; sourceTree = "<group>"; };
+		A7A179D42C7E025100726F57 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 		61DBC2332C5986CA0007F69D /* ML */ = {
 			isa = PBXGroup;
 			children = (
+				A7A179D32C7E022B00726F57 /* Shaders */,
 				61FCD8DC2C5A801E00940C1C /* Models */,
 				61FCD8D72C5A701400940C1C /* ViewModels */,
 				61FCD8D62C5A700C00940C1C /* Views */,
@@ -127,6 +130,14 @@
 				62FF70DD2C6F735D0092F484 /* AnimalData.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		A7A179D32C7E022B00726F57 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				A7A179D42C7E025100726F57 /* Shaders.metal */,
+			);
+			path = Shaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,6 +212,7 @@
 			files = (
 				626051F42C74C5F300C76849 /* InitialMenuViewModel.swift in Sources */,
 				610794152C6F796D00CD159B /* MyCanvas.swift in Sources */,
+				A7A179D52C7E025100726F57 /* Shaders.metal in Sources */,
 				626051F22C74BE0A00C76849 /* BackgroundView.swift in Sources */,
 				61DBC2372C5986CA0007F69D /* ScenarioView.swift in Sources */,
 				61DBC2352C5986CA0007F69D /* MLApp.swift in Sources */,
