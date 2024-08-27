@@ -14,7 +14,6 @@ struct MyCanvas: UIViewRepresentable {
     func makeUIView(context: Context) -> PKCanvasView {
         canvasView.drawingPolicy = .anyInput
         canvasView.becomeFirstResponder()
-   
 
         return canvasView
     }

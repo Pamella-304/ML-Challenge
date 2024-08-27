@@ -10,14 +10,56 @@ import SwiftUI
 struct ScenarioView: View {
     @StateObject private var viewModel = ScenarioViewModel()
     @StateObject var canvasVM = DrawingCanvasViewModel()
+    @State private var isCanvasViewActive = false
+
+    
     
     var body: some View {
-        ZStack {
-            BackgroundView()
-            ForEach(viewModel.animals.indices, id: \.self) { index in
-                animatedAnimalView(for: index)
-            }.padding()
-            DrawingButtonView().padding()
+
+        NavigationStack{
+            ZStack {
+                
+                NavigationLink(
+                    destination: DrawingCanvasView(viewModel: DrawingCanvasViewModel(), onAdd: { _ in}),
+                    isActive: $isCanvasViewActive
+                ) {
+                    EmptyView()
+                }
+                .hidden()
+                .transition(.move(edge: .trailing))
+                
+                BackgroundView()
+                ForEach(viewModel.animals.indices, id: \.self) { index in
+                    animatedAnimalView(for: index)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Menu {
+                        //
+                    } label: {
+                        Label(
+                            "More",
+                            systemImage: "ellipsis.circle"
+                        )
+                    }.padding()
+                }
+                
+                ToolbarItem(placement: .principal) {
+                    Text("My Magic Sea")
+                        .font(.headline)
+                        .bold()
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        isCanvasViewActive = true
+                    }) {
+                        Text("Abrir Canvas")
+                    }
+                }
+                
+            }
         }
     }
     
@@ -65,6 +107,7 @@ struct ScenarioView: View {
             viewModel.startShakeAnimation(for: index)
         }
     }
+
     
     private func DrawingButtonView() -> some View {
         VStack {
@@ -91,4 +134,5 @@ struct ScenarioView: View {
             Spacer()
         }.padding()
     }
+
 }
