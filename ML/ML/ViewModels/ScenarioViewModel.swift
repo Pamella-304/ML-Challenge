@@ -36,6 +36,16 @@ class ScenarioViewModel: ObservableObject {
         
         let randomDuration = Double.random(in: 3...8)
         
+        // start animation immediately
+        withAnimation(Animation.linear(duration: randomDuration)) {
+            if self.animals[index].positionX == Positions.rightEdge {
+                self.animals[index].positionX = Positions.leftEdge
+            } else {
+                self.animals[index].positionX = Positions.rightEdge
+            }
+        }
+        
+        // timer to repeat animation and image flip
         Timer.scheduledTimer(withTimeInterval: randomDuration, repeats: true) { timer in
             if self.animals[index].positionX == Positions.rightEdge {
                 self.animals[index].isFlipped = true
@@ -58,6 +68,16 @@ class ScenarioViewModel: ObservableObject {
         
         let randomDuration = Double.random(in: 3...8)
         
+        // start the animation immediately
+        withAnimation(Animation.linear(duration: randomDuration)) {
+            if self.animals[index].positionX == Positions.rightEdge {
+                self.animals[index].positionX = Positions.leftEdge
+            } else {
+                self.animals[index].positionX = Positions.rightEdge
+            }
+        }
+        
+        // timer to repeat the animation and image flip
         Timer.scheduledTimer(withTimeInterval: randomDuration, repeats: true) { timer in
             if self.animals[index].positionX == Positions.rightEdge {
                 self.animals[index].isFlipped = true
