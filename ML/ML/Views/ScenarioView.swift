@@ -12,12 +12,50 @@ struct ScenarioView: View {
     @StateObject var canvasVM = DrawingCanvasViewModel()
     
     var body: some View {
-        ZStack {
-            BackgroundView()
-            ForEach(viewModel.animals.indices, id: \.self) { index in
-                animatedAnimalView(for: index)
+        NavigationStack{
+            ZStack {
+                BackgroundView()
+                ForEach(viewModel.animals.indices, id: \.self) { index in
+                    animatedAnimalView(for: index)
+                }
             }
-            DrawingButtonView()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Menu {
+                        //
+                    } label: {
+                        Label(
+                            "More",
+                            systemImage: "ellipsis.circle"
+                        )
+                    }
+                }
+                
+                ToolbarItem(placement: .principal) {
+                    Text("My Magic Sea")
+                        .font(.headline)
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        viewModel.toggleDrawingCanvas()
+                    }) {
+                        
+                        Image(systemName: "pencil")
+
+                    }.fullScreenCover(isPresented: $viewModel.showDrawingCanvas) {
+                        DrawingCanvasView(viewModel: canvasVM) { image in
+                            viewModel.addImage(image)
+                            
+                            if let category = canvasVM.resultCategory,
+                               let animal = animals[category] {
+                                viewModel.addAnimal(animal)
+                            }
+                        }
+                    }
+                }
+                
+            }
         }
     }
     
@@ -66,28 +104,5 @@ struct ScenarioView: View {
         }
     }
     
-    private func DrawingButtonView() -> some View {
-        VStack {
-            Button(action: {
-                viewModel.toggleDrawingCanvas()
-            }) {
-                Image(systemName: "pencil")
-                    .imageScale(.large)
-                    .padding()
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                
-            }.fullScreenCover(isPresented: $viewModel.showDrawingCanvas) {
-                DrawingCanvasView(viewModel: canvasVM) { image in
-                    viewModel.addImage(image)
-                    
-                    if let category = canvasVM.resultCategory,
-                       let animal = animals[category] {
-                        viewModel.addAnimal(animal)
-                    }
-                }
-            }
-            Spacer()
-        }
-    }
+
 }
