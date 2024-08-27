@@ -20,7 +20,6 @@ struct DrawingCanvasView: View {
             MyCanvas(canvasView: $viewModel.canvasView)
                 .edgesIgnoringSafeArea(.all)
             VStack{
-                Spacer()
                 Button(action: {
                     viewModel.processDrawing { isolatedImage in
                         if let isolatedImage = isolatedImage {
@@ -38,6 +37,8 @@ struct DrawingCanvasView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
+                Spacer()
+
             }
             .padding()
 
