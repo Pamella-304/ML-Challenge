@@ -21,8 +21,6 @@ struct Animal {
     let animationType: AnimationType
 
     var rotationAngle: Double = 0
-    var isFlipped: Bool = false
-    var shake: Bool = false
     let angles: [Double] = [0, 5, 10, 15, 20, 25]
 }
 

@@ -11,6 +11,8 @@ struct ScenarioView: View {
     @StateObject private var viewModel = ScenarioViewModel()
     @StateObject var canvasVM = DrawingCanvasViewModel()
     
+    let startDate = Date()
+    
     var body: some View {
         ZStack {
             BackgroundView()
@@ -25,46 +27,32 @@ struct ScenarioView: View {
     private func animatedAnimalView(for index: Int) -> some View {
         let animal = viewModel.animals[index]
         
-        Image(uiImage: viewModel.isolatedImages[index])
-            .resizable()
-            .frame(width: UIScreen.main.bounds.width * 0.2,
-                   height: UIScreen.main.bounds.height * 0.3)
-            .scaleEffect(x: scaleEffectX(for: animal), y: 1)
-            .offset(x: animal.positionX, y: animal.positionY)
-            .rotationEffect(rotationAngle(for: animal))
-            .onAppear {
-                handleAnimation(for: index)
+        TimelineView (.animation) { tl in
+            let time = startDate.distance(to: tl.date)
+            
+            switch(animal.animationType) {
+            case .horizontal:
+                Image(uiImage: viewModel.isolatedImages[index])
+                    .resizable()
+                    .frame(width: UIScreen.main.bounds.width * 0.2, height: UIScreen.main.bounds.height * 0.3)
+                    .starAnimation(time: Float(time), size: Float(UIScreen.main.bounds.height * 0.3))
+                
+            case .shake:
+                Image(uiImage: viewModel.isolatedImages[index])
+                    .resizable()
+                    .frame(width: UIScreen.main.bounds.width * 0.2, height: UIScreen.main.bounds.height * 0.3)
+                    .starAnimation(time: Float(time), size: Float(UIScreen.main.bounds.height * 0.3))
+                
+            case .wave:
+                Image(uiImage: viewModel.isolatedImages[index])
+                    .resizable()
+                    .frame(width: UIScreen.main.bounds.width * 0.2, height: UIScreen.main.bounds.height * 0.3)
+                    .starAnimation(time: Float(time), size: Float(UIScreen.main.bounds.height * 0.3))
             }
-    }
-
-    private func scaleEffectX(for animal: Animal) -> CGFloat {
-        animal.isFlipped ? -1 : 1
-    }
-
-    private func rotationAngle(for animal: Animal) -> Angle {
-        switch animal.animationType {
-        case .wave:
-            return .degrees(animal.rotationAngle)
-        case .shake:
-            return .degrees(animal.shake ? 1 : -1)
-        default:
-            return .degrees(0)
         }
     }
 
-    private func handleAnimation(for index: Int) {
-        let animal = viewModel.animals[index]
-        
-        switch animal.animationType {
-        case .horizontal:
-            viewModel.startHorizontalAnimation(for: index)
-        case .wave:
-            viewModel.startRotationAnimation(for: index)
-            viewModel.startWaveAnimation(for: index)
-        case .shake:
-            viewModel.startShakeAnimation(for: index)
-        }
-    }
+
     
     private func DrawingButtonView() -> some View {
         VStack {
@@ -91,4 +79,22 @@ struct ScenarioView: View {
             Spacer()
         }.padding()
     }
+}
+
+
+extension View {
+    func starAnimation(time: Float, size: Float) -> some View {
+        self
+            .distortionEffect(ShaderLibrary.compress(.float(time)), maxSampleOffset: .zero)
+            .distortionEffect(ShaderLibrary.horizontal(.float(time), .float(300)), maxSampleOffset: .zero)
+        
+    }
+    
+    func waveAnimation(time: Float) -> some View {
+        self.distortionEffect(ShaderLibrary.rotate(.float(time)), maxSampleOffset: .zero)
+    }
+}
+
+#Preview {
+    ScenarioView()
 }
