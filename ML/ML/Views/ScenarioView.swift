@@ -16,8 +16,8 @@ struct ScenarioView: View {
             BackgroundView()
             ForEach(viewModel.animals.indices, id: \.self) { index in
                 animatedAnimalView(for: index)
-            }
-            DrawingButtonView()
+            }.padding()
+            DrawingButtonView().padding()
         }
     }
     
@@ -77,7 +77,8 @@ struct ScenarioView: View {
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                 
-            }.fullScreenCover(isPresented: $viewModel.showDrawingCanvas) {
+            }
+            .fullScreenCover(isPresented: $viewModel.showDrawingCanvas) {
                 DrawingCanvasView(viewModel: canvasVM) { image in
                     viewModel.addImage(image)
                     
@@ -88,6 +89,6 @@ struct ScenarioView: View {
                 }
             }
             Spacer()
-        }
+        }.padding()
     }
 }
