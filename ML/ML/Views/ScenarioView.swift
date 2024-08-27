@@ -87,10 +87,9 @@ struct ScenarioView: View {
 
                         viewModel.addImage(image)
                         
-                        if let animal = animals[category] {
+                        if let animal = createAnimal(for: category) {
                             viewModel.addAnimal(animal)
                         }
-
                     }
                 }
             }
