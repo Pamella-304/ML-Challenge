@@ -15,6 +15,7 @@ struct ScenarioView: View {
     
     
     var body: some View {
+
         NavigationStack{
             ZStack {
                 
@@ -106,5 +107,32 @@ struct ScenarioView: View {
             viewModel.startShakeAnimation(for: index)
         }
     }
-   
+
+    
+    private func DrawingButtonView() -> some View {
+        VStack {
+            Button(action: {
+                viewModel.toggleDrawingCanvas()
+            }) {
+                Image(systemName: "pencil")
+                    .imageScale(.large)
+                    .padding()
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                
+            }
+            .fullScreenCover(isPresented: $viewModel.showDrawingCanvas) {
+                DrawingCanvasView(viewModel: canvasVM) { image in
+                    viewModel.addImage(image)
+                    
+                    if let category = canvasVM.resultCategory,
+                       let animal = animals[category] {
+                        viewModel.addAnimal(animal)
+                    }
+                }
+            }
+            Spacer()
+        }.padding()
+    }
+
 }
