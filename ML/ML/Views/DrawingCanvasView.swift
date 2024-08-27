@@ -20,47 +20,46 @@ struct DrawingCanvasView: View {
             MyCanvas(canvasView: $viewModel.canvasView)
                 .edgesIgnoringSafeArea(.all)
             
-            VStack {
-                Spacer()
+        }
+        .toolbar {
+            
+            ToolbarItem(placement: .navigationBarLeading) {
+                
+            }
+            
+            ToolbarItem(placement: .principal) {
+                Text("Draw your sea anima")
+                    .font(.headline)
+                    .bold()
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                
                 Button(action: {
                     viewModel.processDrawing { isolatedImage in
                         if let isolatedImage = isolatedImage {
                             onAdd(isolatedImage)
                         } else {
-                            print("Failed to process image")
+                            //inserir aqui a lógica do popup
                         }
                         presentationMode.wrappedValue.dismiss()
                     }
                 }) {
-                    Text("Add")
-                        .font(.title)
-                        .padding()
-                        .background(Color.green)
+                    Text("Add drawing")
+                        .font(.subheadline)
+                        .background(Color.blue)
                         .foregroundColor(.white)
-                        .cornerRadius(10)
+                        .cornerRadius(8)
+                        .padding()
                 }
+                
+                
+                
+                
             }
-            .padding()
+
         }
-     
     }
+    
 }
 
-/**
- 
- toolbar {
-     ToolbarItem(placement: .principal) {
-         Text("Draw your sea animal")
-             .font(.headline)
-             .bold()
-     }
-     ToolbarItem(placement: .navigationBarTrailing) {
-         Button(action: {
-             viewModel.toggleDrawingCanvas()
-         }) {
-             Image(systemName: "pencil")
-         }
-         .padding()
-     }
- }
- */

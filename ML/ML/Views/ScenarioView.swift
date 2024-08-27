@@ -17,6 +17,16 @@ struct ScenarioView: View {
     var body: some View {
         NavigationStack{
             ZStack {
+                
+                NavigationLink(
+                    destination: DrawingCanvasView(viewModel: DrawingCanvasViewModel(), onAdd: { _ in}),
+                    isActive: $isCanvasViewActive
+                ) {
+                    EmptyView()
+                }
+                .hidden()
+                .transition(.move(edge: .trailing))
+                
                 BackgroundView()
                 ForEach(viewModel.animals.indices, id: \.self) { index in
                     animatedAnimalView(for: index)
@@ -48,14 +58,7 @@ struct ScenarioView: View {
                     }
                 }
                 
-            }.background(
-                NavigationLink(
-                    destination: DrawingCanvasView(viewModel: DrawingCanvasViewModel(), onAdd: { _ in}),
-                    isActive: $isCanvasViewActive
-                ) {
-                    EmptyView()
-                }
-            )
+            }
         }
     }
     
