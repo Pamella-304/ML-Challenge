@@ -79,11 +79,17 @@ struct ScenarioView: View {
                 
             }.fullScreenCover(isPresented: $viewModel.showDrawingCanvas) {
                 DrawingCanvasView(viewModel: canvasVM) { image in
-                    viewModel.addImage(image)
-                    
-                    if let category = canvasVM.resultCategory,
-                       let animal = animals[category] {
-                        viewModel.addAnimal(animal)
+                    if let category = canvasVM.resultCategory {
+                        if category == "None" {
+                            print("The model couldn't identify the drawing.")
+                            return
+                        }
+
+                        viewModel.addImage(image)
+                        
+                        if let animal = animals[category] {
+                            viewModel.addAnimal(animal)
+                        }
                     }
                 }
             }
