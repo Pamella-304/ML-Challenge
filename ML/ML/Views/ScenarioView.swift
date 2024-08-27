@@ -10,6 +10,9 @@ import SwiftUI
 struct ScenarioView: View {
     @StateObject private var viewModel = ScenarioViewModel()
     @StateObject var canvasVM = DrawingCanvasViewModel()
+    @State private var isCanvasViewActive = false
+
+    
     
     var body: some View {
         NavigationStack{
@@ -28,34 +31,31 @@ struct ScenarioView: View {
                             "More",
                             systemImage: "ellipsis.circle"
                         )
-                    }
+                    }.padding()
                 }
                 
                 ToolbarItem(placement: .principal) {
                     Text("My Magic Sea")
                         .font(.headline)
+                        .bold()
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        viewModel.toggleDrawingCanvas()
+                        isCanvasViewActive = true
                     }) {
-                        
-                        Image(systemName: "pencil")
-
-                    }.fullScreenCover(isPresented: $viewModel.showDrawingCanvas) {
-                        DrawingCanvasView(viewModel: canvasVM) { image in
-                            viewModel.addImage(image)
-                            
-                            if let category = canvasVM.resultCategory,
-                               let animal = animals[category] {
-                                viewModel.addAnimal(animal)
-                            }
-                        }
+                        Text("Abrir Canvas")
                     }
                 }
                 
-            }
+            }.background(
+                NavigationLink(
+                    destination: DrawingCanvasView(viewModel: DrawingCanvasViewModel(), onAdd: { _ in}),
+                    isActive: $isCanvasViewActive
+                ) {
+                    EmptyView()
+                }
+            )
         }
     }
     
@@ -103,6 +103,5 @@ struct ScenarioView: View {
             viewModel.startShakeAnimation(for: index)
         }
     }
-    
-
+   
 }

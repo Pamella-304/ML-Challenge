@@ -13,21 +13,23 @@ struct DrawingCanvasView: View {
     @StateObject private var scenarioVM = ScenarioViewModel()
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.undoManager) private var undoManager
-    var onAdd: (UIImage) -> Void
+    var onAdd: (UIImage?) -> Void
     
     var body: some View {
-        ZStack{
+        ZStack {
             MyCanvas(canvasView: $viewModel.canvasView)
                 .edgesIgnoringSafeArea(.all)
-            VStack{
+            
+            VStack {
+                Spacer()
                 Button(action: {
                     viewModel.processDrawing { isolatedImage in
                         if let isolatedImage = isolatedImage {
                             onAdd(isolatedImage)
                         } else {
-                            print("failed to process image")
+                            print("Failed to process image")
                         }
-                        presentationMode.wrappedValue.dismiss() // Fecha a tela modal
+                        presentationMode.wrappedValue.dismiss()
                     }
                 }) {
                     Text("Add")
@@ -37,13 +39,28 @@ struct DrawingCanvasView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
-                Spacer()
-
             }
             .padding()
-
-        }.onAppear{
-            viewModel.setupToolPicker()
         }
+     
     }
 }
+
+/**
+ 
+ toolbar {
+     ToolbarItem(placement: .principal) {
+         Text("Draw your sea animal")
+             .font(.headline)
+             .bold()
+     }
+     ToolbarItem(placement: .navigationBarTrailing) {
+         Button(action: {
+             viewModel.toggleDrawingCanvas()
+         }) {
+             Image(systemName: "pencil")
+         }
+         .padding()
+     }
+ }
+ */
