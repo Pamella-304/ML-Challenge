@@ -10,6 +10,9 @@ import SwiftUI
 struct ScenarioView: View {
     @StateObject private var viewModel = ScenarioViewModel()
     @StateObject var canvasVM = DrawingCanvasViewModel()
+    @State var moveRight = true
+    
+    let startDate = Date()
     
     var body: some View {
         ZStack {
@@ -17,7 +20,10 @@ struct ScenarioView: View {
             ForEach(viewModel.animals.indices, id: \.self) { index in
                 animatedAnimalView(for: index)
             }.padding()
-            DrawingButtonView().padding()
+                .padding()
+            
+            DrawingButtonView()
+                .padding()
         }
     }
     
@@ -25,46 +31,32 @@ struct ScenarioView: View {
     private func animatedAnimalView(for index: Int) -> some View {
         let animal = viewModel.animals[index]
         
-        Image(uiImage: viewModel.isolatedImages[index])
-            .resizable()
-            .frame(width: UIScreen.main.bounds.width * 0.2,
-                   height: UIScreen.main.bounds.height * 0.3)
-            .scaleEffect(x: scaleEffectX(for: animal), y: 1)
-            .offset(x: animal.positionX, y: animal.positionY)
-            .rotationEffect(rotationAngle(for: animal))
-            .onAppear {
-                handleAnimation(for: index)
-            }
-    }
-
-    private func scaleEffectX(for animal: Animal) -> CGFloat {
-        animal.isFlipped ? -1 : 1
-    }
-
-    private func rotationAngle(for animal: Animal) -> Angle {
-        switch animal.animationType {
-        case .wave:
-            return .degrees(animal.rotationAngle)
-        case .shake:
-            return .degrees(animal.shake ? 1 : -1)
-        default:
-            return .degrees(0)
-        }
-    }
-
-    private func handleAnimation(for index: Int) {
-        let animal = viewModel.animals[index]
-        
-        switch animal.animationType {
+        switch(animal.animationType) {
         case .horizontal:
-            viewModel.startHorizontalAnimation(for: index)
-        case .wave:
-            viewModel.startRotationAnimation(for: index)
-            viewModel.startWaveAnimation(for: index)
+            let randomY = Double.random(in: 300...900)
+            SwimAnimationView(
+                uiImage: viewModel.isolatedImages[index], randomHeight: randomY
+            )
+            
         case .shake:
-            viewModel.startShakeAnimation(for: index)
+            let randomY = Double.random(in: 300...500)
+            let randomX = Double.random(in: 100...1500)
+            ShakeAnimationView(
+                uiImage: viewModel.isolatedImages[index], randomHeight: randomY,
+                randomWidth: randomX
+            )
+            
+        case .wave:
+            let randomY = Double.random(in: 500...900)
+            let randomX = Double.random(in: 100...1500)
+            WaveAnimationView(
+                uiImage: viewModel.isolatedImages[index],
+                randomHeight: randomY,
+                randomWidth: randomX
+            )
         }
     }
+    
     
     private func DrawingButtonView() -> some View {
         VStack {
@@ -91,4 +83,8 @@ struct ScenarioView: View {
             Spacer()
         }.padding()
     }
+}
+
+#Preview {
+    ScenarioView()
 }

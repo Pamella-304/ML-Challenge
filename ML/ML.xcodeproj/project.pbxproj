@@ -21,6 +21,10 @@
 		626051F22C74BE0A00C76849 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626051F12C74BE0A00C76849 /* BackgroundView.swift */; };
 		626051F42C74C5F300C76849 /* InitialMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626051F32C74C5F300C76849 /* InitialMenuViewModel.swift */; };
 		62FF70DE2C6F735D0092F484 /* AnimalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FF70DD2C6F735D0092F484 /* AnimalData.swift */; };
+		A7A179D52C7E025100726F57 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = A7A179D42C7E025100726F57 /* Shaders.metal */; };
+		A7A179D72C7FEF7100726F57 /* SwimAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A179D62C7FEF7100726F57 /* SwimAnimationView.swift */; };
+		A7A179D92C809A0700726F57 /* ShakeAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A179D82C809A0700726F57 /* ShakeAnimationView.swift */; };
+		A7A179DB2C80AE2300726F57 /* WaveAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A179DA2C80AE2300726F57 /* WaveAnimationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +43,10 @@
 		626051F12C74BE0A00C76849 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		626051F32C74C5F300C76849 /* InitialMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialMenuViewModel.swift; sourceTree = "<group>"; };
 		62FF70DD2C6F735D0092F484 /* AnimalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalData.swift; sourceTree = "<group>"; };
+		A7A179D42C7E025100726F57 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		A7A179D62C7FEF7100726F57 /* SwimAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwimAnimationView.swift; sourceTree = "<group>"; };
+		A7A179D82C809A0700726F57 /* ShakeAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeAnimationView.swift; sourceTree = "<group>"; };
+		A7A179DA2C80AE2300726F57 /* WaveAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveAnimationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +87,7 @@
 		61DBC2332C5986CA0007F69D /* ML */ = {
 			isa = PBXGroup;
 			children = (
+				A7A179D32C7E022B00726F57 /* Shaders */,
 				61FCD8DC2C5A801E00940C1C /* Models */,
 				61FCD8D72C5A701400940C1C /* ViewModels */,
 				61FCD8D62C5A700C00940C1C /* Views */,
@@ -100,6 +109,7 @@
 		61FCD8D62C5A700C00940C1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A7A179DC2C80AEC200726F57 /* Animation */,
 				61DBC2362C5986CA0007F69D /* ScenarioView.swift */,
 				61DBC2422C5989D20007F69D /* DrawingCanvasView.swift */,
 				610794142C6F796D00CD159B /* MyCanvas.swift */,
@@ -127,6 +137,24 @@
 				62FF70DD2C6F735D0092F484 /* AnimalData.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		A7A179D32C7E022B00726F57 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				A7A179D42C7E025100726F57 /* Shaders.metal */,
+			);
+			path = Shaders;
+			sourceTree = "<group>";
+		};
+		A7A179DC2C80AEC200726F57 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				A7A179D62C7FEF7100726F57 /* SwimAnimationView.swift */,
+				A7A179D82C809A0700726F57 /* ShakeAnimationView.swift */,
+				A7A179DA2C80AE2300726F57 /* WaveAnimationView.swift */,
+			);
+			path = Animation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,11 +227,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7A179DB2C80AE2300726F57 /* WaveAnimationView.swift in Sources */,
 				626051F42C74C5F300C76849 /* InitialMenuViewModel.swift in Sources */,
 				610794152C6F796D00CD159B /* MyCanvas.swift in Sources */,
+				A7A179D52C7E025100726F57 /* Shaders.metal in Sources */,
+				A7A179D92C809A0700726F57 /* ShakeAnimationView.swift in Sources */,
 				626051F22C74BE0A00C76849 /* BackgroundView.swift in Sources */,
 				61DBC2372C5986CA0007F69D /* ScenarioView.swift in Sources */,
 				61DBC2352C5986CA0007F69D /* MLApp.swift in Sources */,
+				A7A179D72C7FEF7100726F57 /* SwimAnimationView.swift in Sources */,
 				61FCD8DB2C5A704A00940C1C /* ScenarioViewModel.swift in Sources */,
 				62FF70DE2C6F735D0092F484 /* AnimalData.swift in Sources */,
 				61C26DB22C76301400B937FD /* AnimalClassifier.mlmodel in Sources */,

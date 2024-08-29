@@ -24,15 +24,15 @@ struct InitialMenuView: View {
                         .frame(width: UIScreen.main.bounds.width * 0.6,
                                height: UIScreen.main.bounds.height * 0.8)
                         .padding(.top, -80)
-
-                        startButton()
-                            .background(
-                                Image("crab")
-                                    .resizable()
-                                    .frame(width: UIScreen.main.bounds.width * 0.2,
-                                           height: UIScreen.main.bounds.height * 0.3)
-                                    .padding(.bottom, 300)
-                            )
+                    
+                    startButton()
+                        .background(
+                            Image("crab")
+                                .resizable()
+                                .frame(width: UIScreen.main.bounds.width * 0.2,
+                                       height: UIScreen.main.bounds.height * 0.3)
+                                .padding(.bottom, 300)
+                        )
                     
                     Spacer()
                 }

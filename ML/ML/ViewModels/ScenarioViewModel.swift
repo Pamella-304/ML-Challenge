@@ -31,66 +31,6 @@ class ScenarioViewModel: ObservableObject {
         }
     }
     
-    func startHorizontalAnimation(for index: Int) {
-        guard index < animals.count else { return }
-        
-        let randomDuration = Double.random(in: 3...8)
-        
-        Timer.scheduledTimer(withTimeInterval: randomDuration, repeats: true) { timer in
-            if self.animals[index].positionX == Positions.rightEdge {
-                self.animals[index].isFlipped = true
-            } else {
-                self.animals[index].isFlipped = false
-            }
-            
-            withAnimation(Animation.linear(duration: randomDuration)) {
-                if self.animals[index].positionX == Positions.rightEdge {
-                    self.animals[index].positionX = Positions.leftEdge
-                } else {
-                    self.animals[index].positionX = Positions.rightEdge
-                }
-            }
-        }
-    }
-
-    func startWaveAnimation(for index: Int) {
-        guard index < animals.count else { return }
-        
-        let randomDuration = Double.random(in: 3...8)
-        
-        Timer.scheduledTimer(withTimeInterval: randomDuration, repeats: true) { timer in
-            if self.animals[index].positionX == Positions.rightEdge {
-                self.animals[index].isFlipped = true
-            } else {
-                self.animals[index].isFlipped = false
-            }
-            
-            withAnimation(Animation.linear(duration: randomDuration)) {
-                if self.animals[index].positionX == Positions.rightEdge {
-                    self.animals[index].positionX = Positions.leftEdge
-                } else {
-                    self.animals[index].positionX = Positions.rightEdge
-                }
-            }
-        }
-    }
-
-    func startShakeAnimation(for index: Int) {
-        guard index < animals.count else { return }
-        withAnimation(Animation.easeInOut(duration: 0.05).repeatForever(autoreverses: true)) {
-            self.animals[index].shake.toggle()
-        }
-    }
-    
-    func startRotationAnimation(for index: Int) {
-        guard index < animals.count else { return }
-        Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true) { timer in
-            withAnimation {
-                self.animals[index].rotationAngle = self.animals[index].angles.randomElement() ?? 0
-            }
-        }
-    }
-    
     func toggleDrawingCanvas() {
         showDrawingCanvas.toggle()
     }
