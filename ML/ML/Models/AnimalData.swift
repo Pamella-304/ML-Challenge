@@ -14,16 +14,19 @@ enum AnimationType {
     case shake
 }
 
-struct Animal {
+class Animal {
     let name: String
     var positionX: CGFloat
     var positionY: CGFloat
     let animationType: AnimationType
 
-    var rotationAngle: Double = 0
-    var isFlipped: Bool = false
-    var shake: Bool = false
-    let angles: [Double] = [0, 5, 10, 15, 20, 25]
+    
+    init(name: String, positionX: CGFloat, positionY: CGFloat, animationType: AnimationType) {
+        self.name = name
+        self.positionX = positionX
+        self.positionY = positionY
+        self.animationType = animationType
+    }
 }
 
 let animals: [String: Animal] = [
