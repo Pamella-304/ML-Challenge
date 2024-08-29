@@ -19,7 +19,9 @@ struct DrawingCanvasView: View {
         ZStack {
             MyCanvas(canvasView: $viewModel.canvasView)
                 .edgesIgnoringSafeArea(.all)
-            
+        }
+        .onAppear{
+            viewModel.setupToolPicker()
         }
         .toolbar {
             
