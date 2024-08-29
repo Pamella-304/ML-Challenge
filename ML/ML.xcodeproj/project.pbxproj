@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		610794152C6F796D00CD159B /* MyCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610794142C6F796D00CD159B /* MyCanvas.swift */; };
+		614ED33B2C80F4070013AA8A /* CutomizedToolBars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614ED33A2C80F4070013AA8A /* CutomizedToolBars.swift */; };
 		61C26DB22C76301400B937FD /* AnimalClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 61C26DB12C76301400B937FD /* AnimalClassifier.mlmodel */; };
 		61DBC2352C5986CA0007F69D /* MLApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DBC2342C5986CA0007F69D /* MLApp.swift */; };
 		61DBC2372C5986CA0007F69D /* ScenarioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DBC2362C5986CA0007F69D /* ScenarioView.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		610794142C6F796D00CD159B /* MyCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCanvas.swift; sourceTree = "<group>"; };
+		614ED33A2C80F4070013AA8A /* CutomizedToolBars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutomizedToolBars.swift; sourceTree = "<group>"; };
 		61C26DB12C76301400B937FD /* AnimalClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = AnimalClassifier.mlmodel; sourceTree = "<group>"; };
 		61DBC2312C5986CA0007F69D /* ML.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ML.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61DBC2342C5986CA0007F69D /* MLApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLApp.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				610794142C6F796D00CD159B /* MyCanvas.swift */,
 				626051EF2C74BD5D00C76849 /* InitialMenuView.swift */,
 				626051F12C74BE0A00C76849 /* BackgroundView.swift */,
+				614ED33A2C80F4070013AA8A /* CutomizedToolBars.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				61FCD8DE2C5A803300940C1C /* ImageProcessor.swift in Sources */,
 				626051F02C74BD5D00C76849 /* InitialMenuView.swift in Sources */,
 				61FCD8D92C5A703300940C1C /* DrawingCanvasViewModel.swift in Sources */,
+				614ED33B2C80F4070013AA8A /* CutomizedToolBars.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,51 +17,26 @@ struct DrawingCanvasView: View {
     
     var body: some View {
         ZStack {
+            
             MyCanvas(canvasView: $viewModel.canvasView)
                 .edgesIgnoringSafeArea(.all)
+            VStack{
+                
+                CutomizedToolBarCanvas(onAdd: onAdd, viewModel: viewModel)
+                
+                Spacer()
+                
+            }
+            
         }
+        .navigationBarBackButtonHidden(true)
         .onAppear{
             viewModel.setupToolPicker()
         }
-        .toolbar {
-            
-            ToolbarItem(placement: .navigationBarLeading) {
-                
-            }
-            
-            ToolbarItem(placement: .principal) {
-                Text("Draw your sea anima")
-                    .font(.headline)
-                    .bold()
-            }
-            
-            ToolbarItem(placement: .navigationBarTrailing) {
-                
-                Button(action: {
-                    viewModel.processDrawing { isolatedImage in
-                        if let isolatedImage = isolatedImage {
-                            onAdd(isolatedImage)
-                        } else {
-                            //inserir aqui a lógica do popup
-                        }
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                }) {
-                    Text("Add drawing")
-                        .font(.subheadline)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                        .padding()
-                }
-                
-                
-                
-                
-            }
-
-        }
+        
+        
     }
+    
     
 }
 

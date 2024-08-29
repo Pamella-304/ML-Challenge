@@ -33,34 +33,14 @@ struct ScenarioView: View {
                 ForEach(viewModel.animals.indices, id: \.self) { index in
                     animatedAnimalView(for: index)
                 }
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Menu {
-                        //
-                    } label: {
-                        Label(
-                            "More",
-                            systemImage: "ellipsis.circle"
-                        )
-                    }.padding()
-                }
                 
-                ToolbarItem(placement: .principal) {
-                    Text("My Magic Sea")
-                        .font(.headline)
-                        .bold()
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        isCanvasViewActive = true
-                    }) {
-                        Text("Abrir Canvas")
-                    }
+                VStack{
+                    CutomizedToolBarScenario(isCanvasViewActive: $isCanvasViewActive, viewModel: viewModel)
+                    Spacer()
                 }
                 
             }
+
         }
     }
     
@@ -97,6 +77,8 @@ struct ScenarioView: View {
     
 
 }
+
+
 
 #Preview {
     ScenarioView()
