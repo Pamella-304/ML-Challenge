@@ -35,7 +35,7 @@ struct ScenarioView: View {
                 }
                 
                 VStack{
-                    CutomizedToolBarScenario(isCanvasViewActive: $isCanvasViewActive)
+                    CutomizedToolBarScenario(isCanvasViewActive: $isCanvasViewActive, viewModel: viewModel)
                     Spacer()
                 }
                 

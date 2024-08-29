@@ -18,15 +18,20 @@ struct CutomizedToolBarScenario: View {
             
             Menu {
                 Button(action: {
+                    
                     print("options")
+                    
                 }) {
+                    
                     MenuButtonLabel(text: "Options", color: .gray)
+                    
                 }
                 Button(action: {
     
                     isCanvasViewActive = true
     
                 }) {
+                    
                     MenuButtonLabel(text: "New Drawing", color: .blue)
                     
                 }
@@ -35,6 +40,7 @@ struct CutomizedToolBarScenario: View {
                     viewModel.resetScenario()
                     
                 }) {
+                    
                     MenuButtonLabel(text: "Reset Scenario", color: .red)
                 }
             } label: {

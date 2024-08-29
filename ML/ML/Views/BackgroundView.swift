@@ -16,20 +16,23 @@ struct BackgroundView: View {
             let screenWidth = geometry.size.width
             let screenHeight = geometry.size.height
             
-            let objectWidth: CGFloat = UIScreen.main.bounds.width
+            let objectWidth: CGFloat = UIScreen.main.bounds.width * 1.1
             let objectHeight: CGFloat = UIScreen.main.bounds.width
             
             Image("scenario")
                 .resizable()
-                .scaledToFill()
+                .scaledToFit()
                 .edgesIgnoringSafeArea(.all)
-                .position(x: moveRight ? screenWidth - objectWidth / 2 : objectWidth / 2, y: screenHeight)
+                .frame(width: objectWidth, height: objectHeight)
+                .position(x: moveRight ? screenWidth/2 - objectWidth * 0.04 : screenWidth/2 + objectWidth * 0.04, y: screenHeight/2)
                 .onAppear {
-                    withAnimation(Animation.linear(duration: 18.0).repeatForever(autoreverses: true)) {
+                    withAnimation(Animation.linear(duration: 25.0).repeatForever(autoreverses: true)) {
                         moveRight.toggle()
                     }
                 }
-            
         }
     }
 }
+
+
+
