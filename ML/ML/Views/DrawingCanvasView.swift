@@ -22,7 +22,7 @@ struct DrawingCanvasView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack{
                 
-                CutomizedToolBarCanvas()
+                CutomizedToolBarCanvas(onAdd: onAdd, viewModel: viewModel)
                 
                 Spacer()
                 

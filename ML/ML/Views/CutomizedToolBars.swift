@@ -9,7 +9,8 @@ import SwiftUI
 
 struct CutomizedToolBarScenario: View {
     @Binding var isCanvasViewActive: Bool
-    
+    @ObservedObject var viewModel: ScenarioViewModel
+
     
     var body: some View {
 
@@ -22,14 +23,17 @@ struct CutomizedToolBarScenario: View {
                     MenuButtonLabel(text: "Options", color: .gray)
                 }
                 Button(action: {
-                    
+    
                     isCanvasViewActive = true
-                    
+    
                 }) {
                     MenuButtonLabel(text: "New Drawing", color: .blue)
+                    
                 }
                 Button(action: {
-                    print("reset scenario")
+                    
+                    viewModel.resetScenario()
+                    
                 }) {
                     MenuButtonLabel(text: "Reset Scenario", color: .red)
                 }
@@ -70,12 +74,14 @@ struct MenuButtonLabel: View {
 struct CutomizedToolBarCanvas: View {
         
     @Environment(\.presentationMode) var presentationMode
-
+    var onAdd: (UIImage?) -> Void
+    @ObservedObject var viewModel: DrawingCanvasViewModel
+    
     var body: some View {
         HStack {
             
             Button(action: {
-                @Environment(\.presentationMode) var presentationMode
+                presentationMode.wrappedValue.dismiss()
             },
                    label: {
                 Image("undefined")
@@ -85,9 +91,11 @@ struct CutomizedToolBarCanvas: View {
             Spacer()
             
             Button(action: {
-                
                 presentationMode.wrappedValue.dismiss()
-
+                viewModel.processDrawing { isolatedImage in
+                    onAdd(isolatedImage)
+                    presentationMode.wrappedValue.dismiss()
+                }
             },
                    label: {
                 Image("addDrawingButton")

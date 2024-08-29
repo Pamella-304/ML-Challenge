@@ -31,6 +31,13 @@ class ScenarioViewModel: ObservableObject {
         }
     }
     
+    func resetScenario() {
+           DispatchQueue.main.async {
+               self.isolatedImages.removeAll()
+               self.animals.removeAll()
+           }
+       }
+    
     func toggleDrawingCanvas() {
         showDrawingCanvas.toggle()
     }
