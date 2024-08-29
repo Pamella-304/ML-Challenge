@@ -10,6 +10,7 @@ import SwiftUI
 struct ScenarioView: View {
     @StateObject private var viewModel = ScenarioViewModel()
     @StateObject var canvasVM = DrawingCanvasViewModel()
+    @State var moveRight = true
     
     let startDate = Date()
     
@@ -19,7 +20,10 @@ struct ScenarioView: View {
             ForEach(viewModel.animals.indices, id: \.self) { index in
                 animatedAnimalView(for: index)
             }.padding()
-            DrawingButtonView().padding()
+                .padding()
+            
+            DrawingButtonView()
+                .padding()
         }
     }
     
@@ -27,32 +31,32 @@ struct ScenarioView: View {
     private func animatedAnimalView(for index: Int) -> some View {
         let animal = viewModel.animals[index]
         
-        TimelineView (.animation) { tl in
-            let time = startDate.distance(to: tl.date)
+        switch(animal.animationType) {
+        case .horizontal:
+            let randomY = Double.random(in: 300...900)
+            SwimAnimationView(
+                uiImage: viewModel.isolatedImages[index], randomHeight: randomY
+            )
             
-            switch(animal.animationType) {
-            case .horizontal:
-                Image(uiImage: viewModel.isolatedImages[index])
-                    .resizable()
-                    .frame(width: UIScreen.main.bounds.width * 0.2, height: UIScreen.main.bounds.height * 0.3)
-                    .starAnimation(time: Float(time), size: Float(UIScreen.main.bounds.height * 0.3))
-                
-            case .shake:
-                Image(uiImage: viewModel.isolatedImages[index])
-                    .resizable()
-                    .frame(width: UIScreen.main.bounds.width * 0.2, height: UIScreen.main.bounds.height * 0.3)
-                    .starAnimation(time: Float(time), size: Float(UIScreen.main.bounds.height * 0.3))
-                
-            case .wave:
-                Image(uiImage: viewModel.isolatedImages[index])
-                    .resizable()
-                    .frame(width: UIScreen.main.bounds.width * 0.2, height: UIScreen.main.bounds.height * 0.3)
-                    .starAnimation(time: Float(time), size: Float(UIScreen.main.bounds.height * 0.3))
-            }
+        case .shake:
+            let randomY = Double.random(in: 300...500)
+            let randomX = Double.random(in: 100...1500)
+            ShakeAnimationView(
+                uiImage: viewModel.isolatedImages[index], randomHeight: randomY,
+                randomWidth: randomX
+            )
+            
+        case .wave:
+            let randomY = Double.random(in: 500...900)
+            let randomX = Double.random(in: 100...1500)
+            WaveAnimationView(
+                uiImage: viewModel.isolatedImages[index],
+                randomHeight: randomY,
+                randomWidth: randomX
+            )
         }
     }
-
-
+    
     
     private func DrawingButtonView() -> some View {
         VStack {
@@ -78,20 +82,6 @@ struct ScenarioView: View {
             }
             Spacer()
         }.padding()
-    }
-}
-
-
-extension View {
-    func starAnimation(time: Float, size: Float) -> some View {
-        self
-            .distortionEffect(ShaderLibrary.compress(.float(time)), maxSampleOffset: .zero)
-            .distortionEffect(ShaderLibrary.horizontal(.float(time), .float(300)), maxSampleOffset: .zero)
-        
-    }
-    
-    func waveAnimation(time: Float) -> some View {
-        self.distortionEffect(ShaderLibrary.rotate(.float(time)), maxSampleOffset: .zero)
     }
 }
 
