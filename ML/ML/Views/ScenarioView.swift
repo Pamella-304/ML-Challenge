@@ -11,19 +11,56 @@ struct ScenarioView: View {
     @StateObject private var viewModel = ScenarioViewModel()
     @StateObject var canvasVM = DrawingCanvasViewModel()
     @State var moveRight = true
-    
+    @State private var isCanvasViewActive = false
+
     let startDate = Date()
-    
+
     var body: some View {
-        ZStack {
-            BackgroundView()
-            ForEach(viewModel.animals.indices, id: \.self) { index in
-                animatedAnimalView(for: index)
-            }.padding()
-                .padding()
-            
-            DrawingButtonView()
-                .padding()
+
+        NavigationStack{
+            ZStack {
+                
+                NavigationLink(
+                    destination: DrawingCanvasView(viewModel: DrawingCanvasViewModel(), onAdd: { _ in}),
+                    isActive: $isCanvasViewActive
+                ) {
+                    EmptyView()
+                }
+                .hidden()
+                .transition(.move(edge: .trailing))
+                
+                BackgroundView()
+                ForEach(viewModel.animals.indices, id: \.self) { index in
+                    animatedAnimalView(for: index)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Menu {
+                        //
+                    } label: {
+                        Label(
+                            "More",
+                            systemImage: "ellipsis.circle"
+                        )
+                    }.padding()
+                }
+                
+                ToolbarItem(placement: .principal) {
+                    Text("My Magic Sea")
+                        .font(.headline)
+                        .bold()
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        isCanvasViewActive = true
+                    }) {
+                        Text("Abrir Canvas")
+                    }
+                }
+                
+            }
         }
     }
     
@@ -56,33 +93,9 @@ struct ScenarioView: View {
             )
         }
     }
+
     
-    
-    private func DrawingButtonView() -> some View {
-        VStack {
-            Button(action: {
-                viewModel.toggleDrawingCanvas()
-            }) {
-                Image(systemName: "pencil")
-                    .imageScale(.large)
-                    .padding()
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                
-            }
-            .fullScreenCover(isPresented: $viewModel.showDrawingCanvas) {
-                DrawingCanvasView(viewModel: canvasVM) { image in
-                    viewModel.addImage(image)
-                    
-                    if let category = canvasVM.resultCategory,
-                       let animal = animals[category] {
-                        viewModel.addAnimal(animal)
-                    }
-                }
-            }
-            Spacer()
-        }.padding()
-    }
+
 }
 
 #Preview {
