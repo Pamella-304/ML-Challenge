@@ -77,15 +77,13 @@ struct MenuButtonLabel: View {
     }
 }
 
-struct CutomizedToolBarCanvas: View {
-        
+struct CustomizedToolBarCanvas: View {
     @Environment(\.presentationMode) var presentationMode
-    var onAdd: (UIImage?) -> Void
+    var onAdd: (UIImage) -> Void
     @ObservedObject var viewModel: DrawingCanvasViewModel
     
     var body: some View {
         HStack {
-            
             Button(action: {
                 presentationMode.wrappedValue.dismiss()
             },
@@ -99,8 +97,12 @@ struct CutomizedToolBarCanvas: View {
             Button(action: {
                 presentationMode.wrappedValue.dismiss()
                 viewModel.processDrawing { isolatedImage in
-                    onAdd(isolatedImage)
-                    presentationMode.wrappedValue.dismiss()
+                    if let image = isolatedImage {
+                        onAdd(image)
+                        presentationMode.wrappedValue.dismiss()
+                    } else {
+                        print("No image was generated")
+                    }
                 }
             },
                    label: {

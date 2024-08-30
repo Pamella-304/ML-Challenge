@@ -16,31 +16,15 @@ struct ScenarioView: View {
     let startDate = Date()
 
     var body: some View {
-
-        NavigationStack{
-            ZStack {
-                
-                NavigationLink(
-                    destination: DrawingCanvasView(viewModel: DrawingCanvasViewModel(), onAdd: { _ in}),
-                    isActive: $isCanvasViewActive
-                ) {
-                    EmptyView()
-                }
-                .hidden()
-                .transition(.move(edge: .trailing))
-                
-                BackgroundView()
-                ForEach(viewModel.animals.indices, id: \.self) { index in
-                    animatedAnimalView(for: index)
-                }
-                
-                VStack{
-                    CutomizedToolBarScenario(isCanvasViewActive: $isCanvasViewActive, viewModel: viewModel)
-                    Spacer()
-                }
-                
-            }
-
+        ZStack {
+            BackgroundView()
+            ForEach(viewModel.animals.indices, id: \.self) { index in
+                animatedAnimalView(for: index)
+            }.padding()
+                .padding()
+            
+            DrawingButtonView()
+                .padding()
         }
     }
     
@@ -74,11 +58,33 @@ struct ScenarioView: View {
         }
     }
 
+    private func DrawingButtonView() -> some View {
+        VStack {
+            Button(action: {
+                viewModel.toggleDrawingCanvas()
+            }) {
+                Image(systemName: "pencil")
+                    .imageScale(.large)
+                    .padding()
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+
+            }
+            .fullScreenCover(isPresented: $viewModel.showDrawingCanvas) {
+                DrawingCanvasView(viewModel: canvasVM) { image in
+                    viewModel.addImage(image)
+
+                    if let category = canvasVM.resultCategory,
+                       let animal = animals[category] {
+                        viewModel.addAnimal(animal)
+                    }
+                }
+            }
+            Spacer()
+        }.padding()
+    }
     
-
 }
-
-
 
 #Preview {
     ScenarioView()

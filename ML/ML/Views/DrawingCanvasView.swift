@@ -13,7 +13,7 @@ struct DrawingCanvasView: View {
     @StateObject private var scenarioVM = ScenarioViewModel()
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.undoManager) private var undoManager
-    var onAdd: (UIImage?) -> Void
+    var onAdd: (UIImage) -> Void
     
     var body: some View {
         ZStack {
@@ -22,7 +22,7 @@ struct DrawingCanvasView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack{
                 
-                CutomizedToolBarCanvas(onAdd: onAdd, viewModel: viewModel)
+                CustomizedToolBarCanvas(onAdd: onAdd, viewModel: viewModel)
                 
                 Spacer()
                 
