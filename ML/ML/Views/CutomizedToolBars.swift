@@ -81,8 +81,9 @@ struct CutomizedToolBarCanvas: View {
         
     @Environment(\.presentationMode) var presentationMode
     var onAdd: (UIImage?) -> Void
-    @ObservedObject var viewModel: DrawingCanvasViewModel
-    
+    @ObservedObject var drawingCanvasViewModel: DrawingCanvasViewModel
+    @ObservedObject var scenarioViewModel: ScenarioViewModel // Adicione isso
+
     var body: some View {
         HStack {
             
@@ -97,10 +98,24 @@ struct CutomizedToolBarCanvas: View {
             Spacer()
             
             Button(action: {
-                presentationMode.wrappedValue.dismiss()
-                viewModel.processDrawing { isolatedImage in
-                    onAdd(isolatedImage)
-                    presentationMode.wrappedValue.dismiss()
+                drawingCanvasViewModel.processDrawing { isolatedImage in
+                    
+                    if let isolatedImage = isolatedImage {
+                        onAdd(isolatedImage)
+                        scenarioViewModel.addImage(isolatedImage)
+                        
+                        if let category = drawingCanvasViewModel.resultCategory,
+                           let animal = animals[category] {
+                            scenarioViewModel.addAnimal(animal)
+                            print("animal adicionado")
+                            print(animal)
+                            print(animal.name)
+                            print(animal.animationType)
+                            print(animal.positionX)
+                            print(animal.positionY)
+                        }
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 }
             },
                    label: {

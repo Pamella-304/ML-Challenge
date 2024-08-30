@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct ScenarioView: View {
-    @StateObject private var viewModel = ScenarioViewModel()
-    @StateObject var canvasVM = DrawingCanvasViewModel()
+    @StateObject private var scenarioViewModel = ScenarioViewModel()
+    @StateObject var drawingCanvasViewModel = DrawingCanvasViewModel()
     @State var moveRight = true
     @State private var isCanvasViewActive = false
+    
 
     let startDate = Date()
 
@@ -21,7 +22,7 @@ struct ScenarioView: View {
             ZStack {
                 
                 NavigationLink(
-                    destination: DrawingCanvasView(viewModel: DrawingCanvasViewModel(), onAdd: { _ in}),
+                    destination: DrawingCanvasView(drawingCanvasViewModel: drawingCanvasViewModel, onAdd: { _ in}),
                     isActive: $isCanvasViewActive
                 ) {
                     EmptyView()
@@ -30,12 +31,12 @@ struct ScenarioView: View {
                 .transition(.move(edge: .trailing))
                 
                 BackgroundView()
-                ForEach(viewModel.animals.indices, id: \.self) { index in
+                ForEach(scenarioViewModel.animals.indices, id: \.self) { index in
                     animatedAnimalView(for: index)
                 }
                 
                 VStack{
-                    CutomizedToolBarScenario(isCanvasViewActive: $isCanvasViewActive, viewModel: viewModel)
+                    CutomizedToolBarScenario(isCanvasViewActive: $isCanvasViewActive, viewModel: scenarioViewModel)
                     Spacer()
                 }
                 
@@ -46,20 +47,20 @@ struct ScenarioView: View {
     
     @ViewBuilder
     private func animatedAnimalView(for index: Int) -> some View {
-        let animal = viewModel.animals[index]
+        let animal = scenarioViewModel.animals[index]
         
         switch(animal.animationType) {
         case .horizontal:
             let randomY = Double.random(in: 300...900)
             SwimAnimationView(
-                uiImage: viewModel.isolatedImages[index], randomHeight: randomY
+                uiImage: scenarioViewModel.isolatedImages[index], randomHeight: randomY
             )
             
         case .shake:
             let randomY = Double.random(in: 300...500)
             let randomX = Double.random(in: 100...1500)
             ShakeAnimationView(
-                uiImage: viewModel.isolatedImages[index], randomHeight: randomY,
+                uiImage: scenarioViewModel.isolatedImages[index], randomHeight: randomY,
                 randomWidth: randomX
             )
             
@@ -67,7 +68,7 @@ struct ScenarioView: View {
             let randomY = Double.random(in: 500...900)
             let randomX = Double.random(in: 100...1500)
             WaveAnimationView(
-                uiImage: viewModel.isolatedImages[index],
+                uiImage: scenarioViewModel.isolatedImages[index],
                 randomHeight: randomY,
                 randomWidth: randomX
             )

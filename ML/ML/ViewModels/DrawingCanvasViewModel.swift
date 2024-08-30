@@ -48,10 +48,13 @@ class DrawingCanvasViewModel: ObservableObject {
             if let currentDrawing = self.currentDrawing {
                 
                 self.imageProcessor.isolateDrawing(from: currentDrawing) { [weak self] isolatedImage in
+                    print("No isolated drawing")
                     DispatchQueue.main.async {
+                        print("No isolated drawing - main thread")
                         self?.isolatedImage = isolatedImage
                         self?.resultCategory = self?.imageProcessor.resultCategory
                         completion(isolatedImage)
+                      
                     }
                 }
                 

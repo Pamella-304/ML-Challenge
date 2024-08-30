@@ -9,20 +9,20 @@ import SwiftUI
 import PencilKit
 
 struct DrawingCanvasView: View {
-    @ObservedObject var viewModel: DrawingCanvasViewModel
-    @StateObject private var scenarioVM = ScenarioViewModel()
+    @ObservedObject var drawingCanvasViewModel: DrawingCanvasViewModel
+    @ObservedObject var scenarioViewModel = ScenarioViewModel()
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.undoManager) private var undoManager
-    var onAdd: (UIImage?) -> Void
+    
     
     var body: some View {
         ZStack {
             
-            MyCanvas(canvasView: $viewModel.canvasView)
+            MyCanvas(canvasView: $drawingCanvasViewModel.canvasView)
                 .edgesIgnoringSafeArea(.all)
             VStack{
                 
-                CutomizedToolBarCanvas(onAdd: onAdd, viewModel: viewModel)
+                CutomizedToolBarCanvas(onAdd: onAdd, drawingCanvasViewModel: drawingCanvasViewModel, scenarioViewModel: scenarioViewModel)
                 
                 Spacer()
                 
@@ -31,7 +31,7 @@ struct DrawingCanvasView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onAppear{
-            viewModel.setupToolPicker()
+            drawingCanvasViewModel.setupToolPicker()
         }
         
         
