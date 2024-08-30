@@ -12,11 +12,9 @@ struct MyCanvas: UIViewRepresentable {
     @Binding var canvasView: PKCanvasView
     @EnvironmentObject var viewModel: DrawingCanvasViewModel
 
-    
     func makeUIView(context: Context) -> PKCanvasView {
         canvasView.drawingPolicy = .anyInput
         canvasView.becomeFirstResponder()
-
 
         return canvasView
     }

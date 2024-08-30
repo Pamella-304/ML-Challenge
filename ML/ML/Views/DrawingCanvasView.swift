@@ -20,12 +20,10 @@ struct DrawingCanvasView: View {
             
             MyCanvas(canvasView: $viewModel.canvasView)
                 .edgesIgnoringSafeArea(.all)
+            
             VStack{
-                
                 CustomizedToolBarCanvas(onAdd: onAdd, viewModel: viewModel)
-                
                 Spacer()
-                
             }
             
         }
@@ -33,10 +31,10 @@ struct DrawingCanvasView: View {
         .onAppear{
             viewModel.setupToolPicker()
         }
-        
-        
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(title: Text("Unrecognized Drawing"),
+                  message: Text("Your drawing is creative, but we couldn't understand it. Try adding more details or redoing it."),
+                  dismissButton: .default(Text("OK")))
+        }
     }
-    
-    
 }
-

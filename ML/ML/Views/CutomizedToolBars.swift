@@ -11,7 +11,6 @@ struct CutomizedToolBarScenario: View {
     @Binding var isCanvasViewActive: Bool
     @ObservedObject var viewModel: ScenarioViewModel
 
-    
     var body: some View {
 
         HStack {
@@ -64,16 +63,15 @@ struct CutomizedToolBarScenario: View {
     }
 }
 
-
 struct MenuButtonLabel: View {
     let text: String
     let color: Color
 
     var body: some View {
         Text(text)
-            .font(.headline) // Defina a fonte uma vez aqui
-            .foregroundColor(color) // Defina a cor fornecida
-            .padding(5) // Adiciona padding se necessário
+            .font(.headline)
+            .foregroundColor(color)
+            .padding(5)
     }
 }
 
@@ -85,9 +83,12 @@ struct CustomizedToolBarCanvas: View {
     var body: some View {
         HStack {
             Button(action: {
-                presentationMode.wrappedValue.dismiss()
+                // Handle dismissal only if no alert is being shown
+                if !viewModel.showAlert {
+                    presentationMode.wrappedValue.dismiss()
+                }
             },
-                   label: {
+            label: {
                 Image("undefined")
             })
             .padding()
@@ -95,17 +96,19 @@ struct CustomizedToolBarCanvas: View {
             Spacer()
             
             Button(action: {
-                presentationMode.wrappedValue.dismiss()
                 viewModel.processDrawing { isolatedImage in
                     if let image = isolatedImage {
                         onAdd(image)
-                        presentationMode.wrappedValue.dismiss()
+                        // Control dismissal after processing
+                        if !viewModel.showAlert {
+                            presentationMode.wrappedValue.dismiss()
+                        }
                     } else {
                         print("No image was generated")
                     }
                 }
             },
-                   label: {
+            label: {
                 Image("addDrawingButton")
             })
             .padding()
