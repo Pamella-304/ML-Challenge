@@ -31,19 +31,32 @@ class ScenarioViewModel: ObservableObject {
         }
     }
     
+    var animationTimers: [Timer] = []
+
     func resetScenario() {
-           DispatchQueue.main.async {
-               self.isolatedImages.removeAll()
-               self.animals.removeAll()
-           }
-       }
-    
+        // Invalidate all animation timers
+        animationTimers.forEach { $0.invalidate() }
+        animationTimers.removeAll()
+
+        // Reset animal states
+        for i in 0..<animals.count {
+            animals[i].rotationAngle = 0
+            animals[i].shake = false
+            animals[i].isFlipped = false
+        }
+
+        DispatchQueue.main.async {
+            self.isolatedImages.removeAll()
+            self.animals.removeAll()
+        }
+    }
+
     func startHorizontalAnimation(for index: Int) {
         guard index < animals.count else { return }
-        
+
         let randomDuration = Double.random(in: 3...8)
-        
-        // start animation immediately
+
+        // Start animation immediately
         withAnimation(Animation.linear(duration: randomDuration)) {
             if self.animals[index].positionX == Positions.rightEdge {
                 self.animals[index].positionX = Positions.leftEdge
@@ -51,15 +64,15 @@ class ScenarioViewModel: ObservableObject {
                 self.animals[index].positionX = Positions.rightEdge
             }
         }
-        
-        // timer to repeat animation and image flip
-        Timer.scheduledTimer(withTimeInterval: randomDuration, repeats: true) { timer in
+
+        // Timer to repeat animation and image flip
+        let timer = Timer.scheduledTimer(withTimeInterval: randomDuration, repeats: true) { timer in
             if self.animals[index].positionX == Positions.rightEdge {
                 self.animals[index].isFlipped = true
             } else {
                 self.animals[index].isFlipped = false
             }
-            
+
             withAnimation(Animation.linear(duration: randomDuration)) {
                 if self.animals[index].positionX == Positions.rightEdge {
                     self.animals[index].positionX = Positions.leftEdge
@@ -68,14 +81,15 @@ class ScenarioViewModel: ObservableObject {
                 }
             }
         }
+        
+        animationTimers.append(timer)
     }
 
     func startWaveAnimation(for index: Int) {
         guard index < animals.count else { return }
-        
+
         let randomDuration = Double.random(in: 3...8)
-        
-        // start the animation immediately
+
         withAnimation(Animation.linear(duration: randomDuration)) {
             if self.animals[index].positionX == Positions.rightEdge {
                 self.animals[index].positionX = Positions.leftEdge
@@ -83,15 +97,14 @@ class ScenarioViewModel: ObservableObject {
                 self.animals[index].positionX = Positions.rightEdge
             }
         }
-        
-        // timer to repeat the animation and image flip
-        Timer.scheduledTimer(withTimeInterval: randomDuration, repeats: true) { timer in
+
+        let timer = Timer.scheduledTimer(withTimeInterval: randomDuration, repeats: true) { timer in
             if self.animals[index].positionX == Positions.rightEdge {
                 self.animals[index].isFlipped = true
             } else {
                 self.animals[index].isFlipped = false
             }
-            
+
             withAnimation(Animation.linear(duration: randomDuration)) {
                 if self.animals[index].positionX == Positions.rightEdge {
                     self.animals[index].positionX = Positions.leftEdge
@@ -100,6 +113,8 @@ class ScenarioViewModel: ObservableObject {
                 }
             }
         }
+
+        animationTimers.append(timer)
     }
 
     func startShakeAnimation(for index: Int) {
@@ -108,16 +123,18 @@ class ScenarioViewModel: ObservableObject {
             self.animals[index].shake.toggle()
         }
     }
-    
+
     func startRotationAnimation(for index: Int) {
         guard index < animals.count else { return }
-        Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true) { timer in
+        let timer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true) { timer in
             withAnimation {
                 self.animals[index].rotationAngle = self.animals[index].angles.randomElement() ?? 0
             }
         }
+
+        animationTimers.append(timer)
     }
-    
+
     func toggleDrawingCanvas() {
         showDrawingCanvas.toggle()
     }
