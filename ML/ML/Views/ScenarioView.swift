@@ -68,32 +68,58 @@ struct ScenarioView: View {
 
     private func DrawingButtonView() -> some View {
         VStack {
-            Button(action: {
-                viewModel.toggleDrawingCanvas()
-            }) {
-                Image(systemName: "pencil")
-                    .imageScale(.large)
-                    .padding()
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            
+            HStack {
+                
+                Menu {
+                    Button(action: {
+                        print("options")
+                    }) {
+                        MenuButtonLabel(text: "Options", color: .gray)
+                    }
 
-            }
-            .fullScreenCover(isPresented: $viewModel.showDrawingCanvas) {
-                DrawingCanvasView(viewModel: canvasVM) { image in
-                    if let category = canvasVM.resultCategory {
-                        if category == "None" {
-                            canvasVM.showAlert = true
-                            return
-                        }
-
-                        viewModel.addImage(image)
+                    Button(action: {
+                        viewModel.resetScenario()
                         
-                        if let animal = createAnimal(for: category) {
-                            viewModel.addAnimal(animal)
+                    }) {
+                        MenuButtonLabel(text: "Reset Scenario", color: .red)
+                    }
+                } label: {
+                    Image("optionButton")
+                        .resizable()
+                        .frame(width: UIScreen.main.bounds.width * 0.08,
+                               height: UIScreen.main.bounds.height * 0.11)
+                }
+                
+                Spacer()
+                
+                Button(action: {
+                    viewModel.toggleDrawingCanvas()
+                }) {
+                    Image("drawButton")
+                        .resizable()
+                        .frame(width: UIScreen.main.bounds.width * 0.08,
+                               height: UIScreen.main.bounds.height * 0.11)
+                }
+                .fullScreenCover(isPresented: $viewModel.showDrawingCanvas) {
+                    DrawingCanvasView(viewModel: canvasVM) { image in
+                        if let category = canvasVM.resultCategory {
+                            if category == "None" {
+                                canvasVM.showAlert = true
+                                return
+                            }
+
+                            viewModel.addImage(image)
+                            
+                            if let animal = createAnimal(for: category) {
+                                viewModel.addAnimal(animal)
+                            }
                         }
                     }
                 }
             }
+            .padding(.horizontal, 40)
+            
             Spacer()
         }.padding()
     }
