@@ -22,16 +22,16 @@ struct CutomizedToolBarScenario: View {
                     
                 }) {
                     
-                    MenuButtonLabel(text: "Options", color: .gray)
+                    Text("Options")
                     
                 }
-                Button(action: {
+                Button(role: .destructive, action: {
     
                     isCanvasViewActive = true
     
                 }) {
                     
-                    MenuButtonLabel(text: "New Drawing", color: .blue)
+                    Text("New Drawing")
                     
                 }
                 Button(action: {
@@ -40,7 +40,7 @@ struct CutomizedToolBarScenario: View {
                     
                 }) {
                     
-                    MenuButtonLabel(text: "Reset Scenario", color: .red)
+                    Text("Reset Scenario")
                 }
             } label: {
                 Image("optionButton")
@@ -60,18 +60,6 @@ struct CutomizedToolBarScenario: View {
             
         }
 
-    }
-}
-
-struct MenuButtonLabel: View {
-    let text: String
-    let color: Color
-
-    var body: some View {
-        Text(text)
-            .font(.headline)
-            .foregroundColor(color)
-            .padding(5)
     }
 }
 

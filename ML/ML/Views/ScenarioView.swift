@@ -72,23 +72,17 @@ struct ScenarioView: View {
             HStack {
                 
                 Menu {
-                    Button(action: {
-                        print("options")
-                    }) {
-                        MenuButtonLabel(text: "Options", color: .gray)
-                    }
-
-                    Button(action: {
+                    Button(role: .destructive, action: {
                         viewModel.resetScenario()
                         
                     }) {
-                        MenuButtonLabel(text: "Reset Scenario", color: .red)
+                        Text("Reset Scenario")
                     }
                 } label: {
                     Image("optionButton")
                         .resizable()
-                        .frame(width: UIScreen.main.bounds.width * 0.08,
-                               height: UIScreen.main.bounds.height * 0.11)
+                        .frame(width: UIScreen.main.bounds.width * 0.075,
+                               height: UIScreen.main.bounds.height * 0.105)
                 }
                 
                 Spacer()
