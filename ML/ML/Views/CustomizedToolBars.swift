@@ -77,7 +77,12 @@ struct CustomizedToolBarCanvas: View {
                 }
             },
             label: {
-                Image("undefined")
+                Image("circleButton")
+                    .overlay(
+                        Image(systemName: "arrow.down.right.and.arrow.up.left")
+                            .font(.title.bold())
+                            .foregroundColor(.black)
+                    )
             })
             .padding()
             
